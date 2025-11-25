@@ -1,73 +1,47 @@
-﻿import { create } from 'zustand';
-import { SessionState, PartyMemberState } from '@/domain';
-import { dataStore } from '@/storage';
+﻿import { create } from "zustand";
+import { PartyMemberState, SessionState } from "@/domain";
+import { getActiveDataStore } from "@/storage";
 
-/**
- * Session Store 接口
- */
 interface SessionStore {
-  // 当前选中的 Session
   currentSession: SessionState | null;
-  
-  // 所有 Session 列表
   sessions: SessionState[];
-  
-  // 加载所有 Session
   loadSessions: () => Promise<void>;
-  
-  // 设置当前 Session
   setCurrentSession: (sessionId: string) => Promise<void>;
-  
-  // 创建新 Session
   createSession: (session: SessionState) => Promise<void>;
-  
-  // 更新当前 Session
   updateCurrentSession: (updates: Partial<SessionState>) => Promise<void>;
-  
-  // 更新队伍成员
   updatePartyMember: (memberId: string, updates: Partial<PartyMemberState>) => Promise<void>;
-  
-  // 添加队伍成员
   addPartyMember: (member: PartyMemberState) => Promise<void>;
-  
-  // 移除队伍成员
   removePartyMember: (memberId: string) => Promise<void>;
-  
-  // 添加事件日志
   addEventLog: (event: string) => Promise<void>;
-  
-  // 更新隐藏变量
   updateHiddenVariable: (key: string, value: number) => Promise<void>;
-  
-  // 保存当前 Session
+  addVisitedScene: (sceneId: string) => Promise<void>;
+  removeVisitedScene: (sceneId: string) => Promise<void>;
+  addFoundClue: (clueId: string) => Promise<void>;
+  removeFoundClue: (clueId: string) => Promise<void>;
+  setInGameTime: (time: string) => Promise<void>;
   saveCurrentSession: () => Promise<void>;
-  
-  // 删除 Session
   deleteSession: (sessionId: string) => Promise<void>;
 }
 
-/**
- * Session 状态管理
- */
 export const useSessionStore = create<SessionStore>((set, get) => ({
   currentSession: null,
   sessions: [],
 
   loadSessions: async () => {
-    const sessions = await dataStore.loadSessions();
+    const sessions = await getActiveDataStore().loadSessions();
     set({ sessions });
   },
 
   setCurrentSession: async (sessionId: string) => {
-    const session = await dataStore.loadSession(sessionId);
+    const session = await getActiveDataStore().loadSession(sessionId);
     if (session) {
       set({ currentSession: session });
     }
   },
 
   createSession: async (session: SessionState) => {
-    await dataStore.saveSession(session);
-    const sessions = await dataStore.loadSessions();
+    await getActiveDataStore().saveSession(session);
+    const sessions = await getActiveDataStore().loadSessions();
     set({ sessions, currentSession: session });
   },
 
@@ -82,17 +56,15 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
     };
 
     set({ currentSession: updated });
-    await dataStore.saveSession(updated);
+    await getActiveDataStore().saveSession(updated);
   },
 
   updatePartyMember: async (memberId: string, updates: Partial<PartyMemberState>) => {
     const { currentSession } = get();
     if (!currentSession) return;
 
-    const partyMembers = currentSession.partyMembers.map(member =>
-      member.characterId === memberId
-        ? { ...member, ...updates }
-        : member
+    const partyMembers = currentSession.partyMembers.map((member) =>
+      member.characterId === memberId ? { ...member, ...updates } : member,
     );
 
     await get().updateCurrentSession({ partyMembers });
@@ -110,9 +82,7 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
     const { currentSession } = get();
     if (!currentSession) return;
 
-    const partyMembers = currentSession.partyMembers.filter(
-      member => member.characterId !== memberId
-    );
+    const partyMembers = currentSession.partyMembers.filter((member) => member.characterId !== memberId);
     await get().updateCurrentSession({ partyMembers });
   },
 
@@ -135,18 +105,49 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
     await get().updateCurrentSession({ hiddenVariables });
   },
 
+  addVisitedScene: async (sceneId: string) => {
+    const { currentSession } = get();
+    if (!currentSession) return;
+    const visitedScenes = Array.from(new Set([...(currentSession.visitedScenes || []), sceneId]));
+    await get().updateCurrentSession({ visitedScenes });
+  },
+
+  removeVisitedScene: async (sceneId: string) => {
+    const { currentSession } = get();
+    if (!currentSession) return;
+    const visitedScenes = (currentSession.visitedScenes || []).filter((id) => id !== sceneId);
+    await get().updateCurrentSession({ visitedScenes });
+  },
+
+  addFoundClue: async (clueId: string) => {
+    const { currentSession } = get();
+    if (!currentSession) return;
+    const foundClues = Array.from(new Set([...(currentSession.foundClues || []), clueId]));
+    await get().updateCurrentSession({ foundClues });
+  },
+
+  removeFoundClue: async (clueId: string) => {
+    const { currentSession } = get();
+    if (!currentSession) return;
+    const foundClues = (currentSession.foundClues || []).filter((id) => id !== clueId);
+    await get().updateCurrentSession({ foundClues });
+  },
+
+  setInGameTime: async (time: string) => {
+    await get().updateCurrentSession({ currentInGameTime: time });
+  },
+
   saveCurrentSession: async () => {
     const { currentSession } = get();
     if (!currentSession) return;
-
-    await dataStore.saveSession(currentSession);
+    await getActiveDataStore().saveSession(currentSession);
   },
 
   deleteSession: async (sessionId: string) => {
-    await dataStore.deleteSession(sessionId);
-    const sessions = await dataStore.loadSessions();
+    await getActiveDataStore().deleteSession(sessionId);
+    const sessions = await getActiveDataStore().loadSessions();
     const { currentSession } = get();
-    
+
     set({
       sessions,
       currentSession: currentSession?.id === sessionId ? null : currentSession,

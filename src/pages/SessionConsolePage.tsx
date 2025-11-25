@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { useSessionStore } from '@/state';
-import { SessionState } from '@/domain';
+﻿import React, { useEffect, useState } from "react";
+import { Card } from "@/components/Card";
+import { Button } from "@/components/Button";
+import { useSessionStore } from "@/state";
+import { SessionState, Character, SceneTemplate, ClueTemplate, PartyMemberState } from "@/domain";
+import { useDataStore } from "@/storage";
 
 /**
  * KP 中控台页面 - Session 管理
  */
 export const SessionConsolePage: React.FC = () => {
+  const dataStore = useDataStore();
   const {
     currentSession,
     sessions,
@@ -17,19 +19,50 @@ export const SessionConsolePage: React.FC = () => {
     updatePartyMember,
     updateHiddenVariable,
     addEventLog,
+    addVisitedScene,
+    removeVisitedScene,
+    addFoundClue,
+    removeFoundClue,
+    setInGameTime,
+    addPartyMember,
+    updateCurrentSession,
   } = useSessionStore();
 
-  const [newVarName, setNewVarName] = useState('');
-  const [newVarValue, setNewVarValue] = useState('');
+  const [availableCharacters, setAvailableCharacters] = useState<Character[]>([]);
+  const [availableScenes, setAvailableScenes] = useState<SceneTemplate[]>([]);
+  const [availableClues, setAvailableClues] = useState<ClueTemplate[]>([]);
+
+  const [selectedCharacterId, setSelectedCharacterId] = useState("");
+  const [selectedSceneId, setSelectedSceneId] = useState("");
+  const [selectedClueId, setSelectedClueId] = useState("");
+  const [newVarName, setNewVarName] = useState("");
+  const [newVarValue, setNewVarValue] = useState("");
+  const [timeInput, setTimeInput] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const init = async () => {
       await loadSessions();
+      const [chars, scenes, clues] = await Promise.all([
+        dataStore.loadCharacters(),
+        dataStore.loadScenes(),
+        dataStore.loadClues(),
+      ]);
+      setAvailableCharacters(chars);
+      setAvailableScenes(scenes);
+      setAvailableClues(clues);
       setIsLoading(false);
     };
     init();
-  }, [loadSessions]);
+  }, [dataStore, loadSessions]);
+
+  useEffect(() => {
+    if (currentSession?.currentInGameTime) {
+      setTimeInput(currentSession.currentInGameTime);
+    } else {
+      setTimeInput("");
+    }
+  }, [currentSession]);
 
   const handleCreateNewSession = async () => {
     const newSession: SessionState = {
@@ -42,6 +75,7 @@ export const SessionConsolePage: React.FC = () => {
       foundClues: [],
       hiddenVariables: {},
       eventLog: [],
+      currentInGameTime: new Date().toISOString(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -62,7 +96,7 @@ export const SessionConsolePage: React.FC = () => {
     const newHP = Math.max(0, member.currentHP + delta);
     await updatePartyMember(memberId, { currentHP: newHP });
     await addEventLog(
-      `${member.characterName} HP ${delta > 0 ? '+' : ''}${delta} → ${newHP}/${member.maxHP}`
+      `${member.characterName} HP ${delta > 0 ? '+' : ''}${delta} → ${newHP}/${member.maxHP}`,
     );
   };
 
@@ -75,7 +109,7 @@ export const SessionConsolePage: React.FC = () => {
     const newSAN = Math.max(0, member.currentSAN + delta);
     await updatePartyMember(memberId, { currentSAN: newSAN });
     await addEventLog(
-      `${member.characterName} SAN ${delta > 0 ? '+' : ''}${delta} → ${newSAN}/${member.maxSAN}`
+      `${member.characterName} SAN ${delta > 0 ? '+' : ''}${delta} → ${newSAN}/${member.maxSAN}`,
     );
   };
 
@@ -89,7 +123,7 @@ export const SessionConsolePage: React.FC = () => {
     }
 
     await updateHiddenVariable(newVarName, numValue);
-    await addEventLog(`自定义变量 [${newVarName}] 已更新: ${numValue}`);
+    await addEventLog(`自定义变量 [${newVarName}] 已更新为 ${numValue}`);
     setNewVarName('');
     setNewVarValue('');
   };
@@ -104,31 +138,80 @@ export const SessionConsolePage: React.FC = () => {
     }
 
     await updateHiddenVariable(varName, numValue);
-    await addEventLog(`变量 [${varName}] 已更新: ${numValue}`);
+    await addEventLog(`变量 [${varName}] 已更新为 ${numValue}`);
   };
 
   const handleDeleteVariable = async (varName: string) => {
     if (!currentSession) return;
-    
-    // 删除变量（设置为 undefined）
-    const newVars = { ...currentSession.hiddenVariables };
+    const newVars = { ...currentSession.hiddenVariables } as Record<string, number>;
     delete newVars[varName];
-    
-    // 更新所有变量
-    Object.keys(newVars).forEach(key => {
-      updateHiddenVariable(key, newVars[key]);
-    });
-    
+    await updateCurrentSession({ hiddenVariables: newVars });
     await addEventLog(`变量 [${varName}] 已删除`);
   };
 
   const handleRollSanCheck = async (loss: string) => {
     if (!currentSession || !loss) return;
-    await addEventLog(`SAN 检定: 失败扣除 ${loss} SAN`);
+    await addEventLog(`SAN 检定失败扣除 ${loss} SAN`);
   };
 
   const handleBackToList = async () => {
     await loadSessions();
+  };
+
+  const handleAddPartyMember = async () => {
+    if (!currentSession || !selectedCharacterId) return;
+    const character = availableCharacters.find((c) => c.id === selectedCharacterId);
+    if (!character) return;
+    const member: PartyMemberState = {
+      characterId: character.id,
+      characterName: character.name,
+      currentHP: character.currentHP,
+      maxHP: character.maxHP,
+      currentSAN: character.currentSAN,
+      maxSAN: character.maxSAN,
+      currentMP: character.currentMP,
+      maxMP: character.maxMP,
+      statusTags: [],
+      temporaryModifiers: {},
+      notes: character.background,
+    };
+    await addPartyMember(member);
+    await addEventLog(`加入队伍：${character.name}`);
+    setSelectedCharacterId('');
+  };
+
+  const handleAddVisitedScene = async () => {
+    if (!currentSession || !selectedSceneId) return;
+    await addVisitedScene(selectedSceneId);
+    const scene = availableScenes.find((s) => s.id === selectedSceneId);
+    await addEventLog(`标记已访问场景：${scene?.name || selectedSceneId}`);
+    setSelectedSceneId('');
+  };
+
+  const handleAddFoundClue = async () => {
+    if (!currentSession || !selectedClueId) return;
+    await addFoundClue(selectedClueId);
+    const clue = availableClues.find((c) => c.id === selectedClueId);
+    await addEventLog(`获得线索：${clue?.name || selectedClueId}`);
+    setSelectedClueId('');
+  };
+
+  const handleRemoveScene = async (sceneId: string) => {
+    await removeVisitedScene(sceneId);
+    const scene = availableScenes.find((s) => s.id === sceneId);
+    await addEventLog(`取消访问场景：${scene?.name || sceneId}`);
+  };
+
+  const handleRemoveClue = async (clueId: string) => {
+    await removeFoundClue(clueId);
+    const clue = availableClues.find((c) => c.id === clueId);
+    await addEventLog(`移除线索：${clue?.name || clueId}`);
+  };
+
+  const handleSaveTime = async () => {
+    if (!timeInput) return;
+    await setInGameTime(timeInput);
+    await addEventLog(`当前游戏时间更新为 ${timeInput}`);
   };
 
   if (isLoading) {
@@ -164,7 +247,7 @@ export const SessionConsolePage: React.FC = () => {
               </div>
               <p className="text-ww-slate-600 mb-4">还没有任何 Session</p>
               <Button variant="primary" onClick={handleCreateNewSession}>
-                创建新 Session
+                创建 Session
               </Button>
             </div>
           ) : (
@@ -191,7 +274,7 @@ export const SessionConsolePage: React.FC = () => {
               ))}
               <div className="pt-4">
                 <Button variant="primary" onClick={handleCreateNewSession} className="w-full">
-                  + 创建新 Session
+                  + 创建 Session
                 </Button>
               </div>
             </div>
@@ -223,6 +306,31 @@ export const SessionConsolePage: React.FC = () => {
           </Button>
         </div>
       </div>
+
+      {/* 游戏内时间 */}
+      <Card>
+        <div className="mb-4 pb-4 border-b border-ww-slate-200">
+          <h3 className="text-lg font-semibold text-ww-slate-900">游戏时间</h3>
+          <p className="text-sm text-ww-slate-600 mt-1">记录当前剧情时间点，便于对齐事件顺序</p>
+        </div>
+        <div className="flex gap-2 items-center">
+          <input
+            type="text"
+            value={timeInput}
+            onChange={(e) => setTimeInput(e.target.value)}
+            placeholder="ISO 或描述性时间，如 1920-03-05T21:00"
+            className="flex-1 px-4 py-2 glass-strong border border-ww-slate-300/50 rounded-lg text-ww-slate-800 placeholder-ww-slate-500 focus:outline-none focus:ring-2 focus:ring-ww-orange-500/50 transition-all"
+          />
+          <Button variant="primary" onClick={handleSaveTime}>
+            保存时间
+          </Button>
+        </div>
+        {currentSession.currentInGameTime && (
+          <p className="text-xs text-ww-slate-600 mt-2 font-mono">
+            当前：{currentSession.currentInGameTime}
+          </p>
+        )}
+      </Card>
 
       {/* 自定义变量管理 */}
       <Card>
@@ -276,7 +384,7 @@ export const SessionConsolePage: React.FC = () => {
             type="text"
             value={newVarName}
             onChange={(e) => setNewVarName(e.target.value)}
-            placeholder="变量名（如: LS、线索数、威胁值）"
+            placeholder="变量名（如 LS、线索数、威胁值）"
             className="flex-1 px-4 py-2 glass-strong border border-ww-slate-300/50 rounded-lg text-ww-slate-800 placeholder-ww-slate-500 focus:outline-none focus:ring-2 focus:ring-ww-orange-500/50 transition-all"
           />
           <input
@@ -295,27 +403,83 @@ export const SessionConsolePage: React.FC = () => {
         </p>
       </Card>
 
-      {/* SAN 检定工具 */}
+      {/* 场景与线索状态 */}
       <Card>
         <div className="mb-4 pb-4 border-b border-ww-slate-200">
-          <h3 className="text-lg font-semibold text-ww-slate-900">SAN 检定</h3>
+          <h3 className="text-lg font-semibold text-ww-slate-900">场景 / 线索状态</h3>
+          <p className="text-sm text-ww-slate-600 mt-1">记录已访问的场景和获得的线索</p>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-3">
+            <div className="flex gap-2">
+              <select
+                value={selectedSceneId}
+                onChange={(e) => setSelectedSceneId(e.target.value)}
+                className="flex-1 px-3 py-2 glass-strong border border-ww-slate-300/50 rounded-lg"
+              >
+                <option value="">选择场景</option>
+                {availableScenes.map((scene) => (
+                  <option key={scene.id} value={scene.id}>
+                    {scene.name}
+                  </option>
+                ))}
+              </select>
+              <Button variant="primary" onClick={handleAddVisitedScene}>
+                标记已访问
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {(currentSession.visitedScenes || []).map((sceneId) => (
+                <div key={sceneId} className="flex items-center justify-between glass-strong rounded-lg px-3 py-2">
+                  <span className="text-sm text-ww-slate-800">
+                    {availableScenes.find((s) => s.id === sceneId)?.name || sceneId}
+                  </span>
+                  <Button size="sm" variant="ghost" onClick={() => handleRemoveScene(sceneId)}>
+                    移除
+                  </Button>
+                </div>
+              ))}
+              {currentSession.visitedScenes.length === 0 && (
+                <p className="text-sm text-ww-slate-500">尚未标记任何场景</p>
+              )}
+            </div>
+          </div>
 
-        <div className="flex gap-3">
-          <input
-            type="text"
-            placeholder="输入失败损失 (例如: 1d6)"
-            className="flex-1 px-4 py-2 glass-strong border border-ww-slate-300/50 rounded-lg text-ww-slate-800 placeholder-ww-slate-500 focus:outline-none focus:ring-2 focus:ring-ww-orange-500/50"
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleRollSanCheck((e.target as HTMLInputElement).value);
-                (e.target as HTMLInputElement).value = '';
-              }
-            }}
-          />
-          <Button variant="primary">🎲 投骰</Button>
+          <div className="space-y-3">
+            <div className="flex gap-2">
+              <select
+                value={selectedClueId}
+                onChange={(e) => setSelectedClueId(e.target.value)}
+                className="flex-1 px-3 py-2 glass-strong border border-ww-slate-300/50 rounded-lg"
+              >
+                <option value="">选择线索</option>
+                {availableClues.map((clue) => (
+                  <option key={clue.id} value={clue.id}>
+                    {clue.name}
+                  </option>
+                ))}
+              </select>
+              <Button variant="primary" onClick={handleAddFoundClue}>
+                标记已获得
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {(currentSession.foundClues || []).map((clueId) => (
+                <div key={clueId} className="flex items-center justify-between glass-strong rounded-lg px-3 py-2">
+                  <span className="text-sm text-ww-slate-800">
+                    {availableClues.find((c) => c.id === clueId)?.name || clueId}
+                  </span>
+                  <Button size="sm" variant="ghost" onClick={() => handleRemoveClue(clueId)}>
+                    移除
+                  </Button>
+                </div>
+              ))}
+              {currentSession.foundClues.length === 0 && (
+                <p className="text-sm text-ww-slate-500">尚未获得线索</p>
+              )}
+            </div>
+          </div>
         </div>
-        <p className="text-xs text-ww-slate-600 mt-2">输入 SAN 损失公式后按回车或点击投骰</p>
       </Card>
 
       {/* 队伍成员状态 */}
@@ -324,10 +488,28 @@ export const SessionConsolePage: React.FC = () => {
           <h3 className="text-lg font-semibold text-ww-slate-900">队伍成员</h3>
         </div>
 
+        <div className="flex gap-2 mb-4">
+          <select
+            value={selectedCharacterId}
+            onChange={(e) => setSelectedCharacterId(e.target.value)}
+            className="flex-1 px-3 py-2 glass-strong border border-ww-slate-300/50 rounded-lg"
+          >
+            <option value="">选择角色加入队伍</option>
+            {availableCharacters.map((char) => (
+              <option key={char.id} value={char.id}>
+                {char.name}
+              </option>
+            ))}
+          </select>
+          <Button variant="primary" onClick={handleAddPartyMember}>
+            添加角色
+          </Button>
+        </div>
+
         {currentSession.partyMembers.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-ww-slate-600 mb-4">还没有添加角色</p>
-            <Button variant="primary">+ 添加角色</Button>
+            <Button variant="primary" onClick={handleAddPartyMember}>+ 添加角色</Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -453,6 +635,29 @@ export const SessionConsolePage: React.FC = () => {
             ))}
           </div>
         )}
+      </Card>
+
+      {/* SAN 检定工具 */}
+      <Card>
+        <div className="mb-4 pb-4 border-b border-ww-slate-200">
+          <h3 className="text-lg font-semibold text-ww-slate-900">SAN 检定</h3>
+        </div>
+
+        <div className="flex gap-3">
+          <input
+            type="text"
+            placeholder="输入失败损失 (例如: 1d6)"
+            className="flex-1 px-4 py-2 glass-strong border border-ww-slate-300/50 rounded-lg text-ww-slate-800 placeholder-ww-slate-500 focus:outline-none focus:ring-2 focus:ring-ww-orange-500/50"
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                handleRollSanCheck((e.target as HTMLInputElement).value);
+                (e.target as HTMLInputElement).value = '';
+              }
+            }}
+          />
+          <Button variant="primary">🎲 投骰</Button>
+        </div>
+        <p className="text-xs text-ww-slate-600 mt-2">输入 SAN 损失公式后按回车或点击投骰</p>
       </Card>
 
       {/* 事件日志 */}

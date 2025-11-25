@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { dataStore } from '@/storage';
-import { Character, CharacterType } from '@/domain';
+﻿import React, { useEffect, useState } from "react";
+import { Card } from "@/components/Card";
+import { Button } from "@/components/Button";
+import { useDataStore } from "@/storage";
+import { useModuleData } from "@/data";
+import { Character, CharacterType } from "@/domain";
 
 /**
  * 调查员管理页面
  */
 export const CharactersPage: React.FC = () => {
+  const dataStore = useDataStore();
+  const { createSampleCharacter } = useModuleData();
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,45 +28,12 @@ export const CharactersPage: React.FC = () => {
   };
 
   const handleCreateSample = async () => {
-    const now = new Date().toISOString();
-    const sample: Character = {
-      id: `char_${Date.now()}`,
-      name: '陈默',
-      type: CharacterType.INVESTIGATOR,
-      attributes: {
-        STR: 60,
-        CON: 65,
-        SIZ: 70,
-        DEX: 55,
-        APP: 50,
-        INT: 75,
-        POW: 70,
-        EDU: 80,
-        LUCK: 60,
-      },
-      maxHP: 13,
-      currentHP: 13,
-      maxSAN: 70,
-      currentSAN: 70,
-      maxMP: 14,
-      currentMP: 14,
-      skills: [
-        { skillId: 'skill_spot_hidden', value: 60 },
-        { skillId: 'skill_library_use', value: 70 },
-      ],
-      occupation: '图书管理员',
-      age: 32,
-      background: '来自上海的调查员，精通资料研究与线索追踪。',
-      createdAt: now,
-      updatedAt: now,
-    };
-
-    await dataStore.saveCharacter(sample);
+    await dataStore.saveCharacter(createSampleCharacter());
     await loadCharacters();
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm('确定要删除此角色吗？')) {
+    if (confirm("确定要删除此角色吗？")) {
       await dataStore.deleteCharacter(id);
       await loadCharacters();
     }
@@ -92,7 +62,7 @@ export const CharactersPage: React.FC = () => {
         </p>
       </div>
 
-      {/* 操作栏 */}
+      {/* 操作区 */}
       <div className="flex gap-3">
         <Button variant="primary" onClick={handleCreateSample}>
           + 创建示例角色
@@ -125,7 +95,7 @@ export const CharactersPage: React.FC = () => {
                       {char.name}
                     </h3>
                     <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-ww-orange-100 text-ww-orange-700 border border-ww-orange-200">
-                      {char.type === CharacterType.INVESTIGATOR ? '调查员' : 'NPC'}
+                      {char.type === CharacterType.INVESTIGATOR ? "调查员" : "NPC"}
                     </span>
                   </div>
                   {char.occupation && (
@@ -170,7 +140,7 @@ export const CharactersPage: React.FC = () => {
                 <Button
                   variant="secondary"
                   className="flex-1 text-sm"
-                  onClick={() => alert('角色详情功能开发中...')}
+                  onClick={() => alert("角色详情功能开发中...")}
                 >
                   查看详情
                 </Button>

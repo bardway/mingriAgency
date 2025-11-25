@@ -1,40 +1,28 @@
-import React, { useState } from 'react';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { dataStore } from '@/storage';
+﻿import React, { useState } from "react";
+import { Card } from "@/components/Card";
+import { Button } from "@/components/Button";
+import { useDataStore } from "@/storage";
 
 /**
  * 设置页面
  */
 export const SettingsPage: React.FC = () => {
+  const dataStore = useDataStore();
   const [importing, setImporting] = useState(false);
 
   const handleExport = async () => {
     try {
-      const [characters, campaigns, sessions] = await Promise.all([
-        dataStore.loadCharacters(),
-        dataStore.loadCampaigns(),
-        dataStore.loadSessions(),
-      ]);
-
-      const exportData = {
-        version: '0.3.0',
-        exportDate: new Date().toISOString(),
-        data: { characters, campaigns, sessions },
-      };
-
-      const blob = new Blob([JSON.stringify(exportData, null, 2)], {
-        type: 'application/json',
-      });
+      const exportJson = await dataStore.exportAllData();
+      const blob = new Blob([exportJson], { type: "application/json" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
       a.download = `mingri-coc7-backup-${Date.now()}.json`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('导出失败:', error);
-      alert('导出失败，请重试');
+      console.error("导出失败:", error);
+      alert("导出失败，请重试");
     }
   };
 
@@ -48,37 +36,12 @@ export const SettingsPage: React.FC = () => {
     reader.onload = async (e) => {
       try {
         const content = e.target?.result as string;
-        const importData = JSON.parse(content);
-
-        if (!importData.data) {
-          throw new Error('无效的备份文件格式');
-        }
-
-        const { characters, campaigns, sessions } = importData.data;
-
-        if (characters) {
-          for (const char of characters) {
-            await dataStore.saveCharacter(char);
-          }
-        }
-
-        if (campaigns) {
-          for (const campaign of campaigns) {
-            await dataStore.saveCampaign(campaign);
-          }
-        }
-
-        if (sessions) {
-          for (const session of sessions) {
-            await dataStore.saveSession(session);
-          }
-        }
-
-        alert('导入成功！');
+        await dataStore.importAllData(content);
+        alert("导入成功！");
         window.location.reload();
       } catch (error) {
-        console.error('导入失败:', error);
-        alert('导入失败，请检查文件格式');
+        console.error("导入失败:", error);
+        alert("导入失败，请检查文件格式");
       } finally {
         setImporting(false);
       }
@@ -88,31 +51,17 @@ export const SettingsPage: React.FC = () => {
   };
 
   const handleClearData = async () => {
-    if (!confirm('确定要清除所有数据吗？此操作无法撤销！')) {
+    if (!confirm("确定要清除所有数据吗？此操作无法撤销！")) {
       return;
     }
 
     try {
-      // 清除所有数据
-      const characters = await dataStore.loadCharacters();
-      const campaigns = await dataStore.loadCampaigns();
-      const sessions = await dataStore.loadSessions();
-
-      for (const char of characters) {
-        await dataStore.deleteCharacter(char.id);
-      }
-      for (const campaign of campaigns) {
-        await dataStore.deleteCampaign(campaign.id);
-      }
-      for (const session of sessions) {
-        await dataStore.deleteSession(session.id);
-      }
-
-      alert('数据已清除');
+      await dataStore.clearAllData();
+      alert("数据已清空");
       window.location.reload();
     } catch (error) {
-      console.error('清除失败:', error);
-      alert('清除失败，请重试');
+      console.error("清除失败:", error);
+      alert("清除失败，请重试");
     }
   };
 
@@ -137,7 +86,7 @@ export const SettingsPage: React.FC = () => {
           <div>
             <h4 className="text-ww-slate-800 font-semibold mb-2">导出数据</h4>
             <p className="text-sm text-ww-slate-600 mb-3 leading-relaxed">
-              将所有角色、模组和 Session 数据导出为 JSON 文件，用于备份或迁移。
+              将所有角色、模组、场景、线索和 Session 数据导出为 JSON 文件，用于备份或迁移。
             </p>
             <Button onClick={handleExport} variant="primary">
               📥 导出所有数据
@@ -175,7 +124,7 @@ export const SettingsPage: React.FC = () => {
           <div>
             <h4 className="text-red-600 font-semibold mb-2">清除所有数据</h4>
             <p className="text-sm text-ww-slate-700 mb-3 leading-relaxed">
-              此操作将永久删除所有本地数据，包括角色、模组和 Session 记录。此操作无法撤销，请谨慎操作！
+              此操作将永久删除所有本地数据，包括角色、模组、场景、线索和 Session 记录。此操作无法撤销，请谨慎操作。
             </p>
             <Button onClick={handleClearData} variant="danger">
               🗑️ 清除所有数据
@@ -196,7 +145,7 @@ export const SettingsPage: React.FC = () => {
             一个专为 COC7 跑团设计的现代化 KP 辅助工具
           </p>
           <p className="text-ww-slate-500">
-            ✨ 西部世界浅色主题 | 玻璃态设计 | 纯前端应用
+            · 西部世界浅色主题 | 玻璃态设计 | 纯前端应用
           </p>
         </div>
       </Card>

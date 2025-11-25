@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/Card';
 import { Button } from '@/components/Button';
-import { dataStore } from '@/storage';
+import { useDataStore } from '@/storage';
 import { SessionState, Character, Campaign } from '@/domain';
 
 /**
  * Dashboard 页面 - 概览页
  */
 export const DashboardPage: React.FC = () => {
+  const dataStore = useDataStore();
   const [sessions, setSessions] = useState<SessionState[]>([]);
   const [characters, setCharacters] = useState<Character[]>([]);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);

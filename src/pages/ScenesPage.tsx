@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { dataStore } from '@/storage';
-import { SceneTemplate, ClueTemplate } from '@/domain';
+﻿import React, { useEffect, useState } from "react";
+import { Card } from "@/components/Card";
+import { Button } from "@/components/Button";
+import { useDataStore } from "@/storage";
+import { useModuleData } from "@/data";
+import { SceneTemplate, ClueTemplate } from "@/domain";
 
 /**
  * 场景与线索管理页面
  */
 export const ScenesPage: React.FC = () => {
+  const dataStore = useDataStore();
+  const { createSampleScene, createSampleClue } = useModuleData();
   const [scenes, setScenes] = useState<SceneTemplate[]>([]);
   const [clues, setClues] = useState<ClueTemplate[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,46 +34,24 @@ export const ScenesPage: React.FC = () => {
   };
 
   const handleCreateSampleScene = async () => {
-    const sample: SceneTemplate = {
-      id: `scene_${Date.now()}`,
-      name: '废弃书店',
-      summary: '一家位于老城区的废弃书店，传说曾是神秘学者的聚集地',
-      description: '破旧的木门半掩着，透过窗户可以看到堆满灰尘的书架...',
-      clueIds: [],
-      prerequisites: [],
-    };
-    
-    await dataStore.saveScene(sample);
+    await dataStore.saveScene(createSampleScene());
     await loadData();
   };
 
   const handleCreateSampleClue = async () => {
-    const sample: ClueTemplate = {
-      id: `clue_${Date.now()}`,
-      name: '神秘手稿',
-      description: '一本用古老文字书写的手稿，记载着不为人知的仪式',
-      requiredSkillCheck: {
-        skillId: 'skill_library_use',
-        difficulty: 60,
-      },
-      relatedClues: [],
-      relatedScenes: [],
-      isHidden: false,
-    };
-    
-    await dataStore.saveClue(sample);
+    await dataStore.saveClue(createSampleClue());
     await loadData();
   };
 
   const handleDeleteScene = async (id: string) => {
-    if (confirm('确定要删除此场景吗？')) {
+    if (confirm("确定要删除此场景吗？")) {
       await dataStore.deleteScene(id);
       await loadData();
     }
   };
 
   const handleDeleteClue = async (id: string) => {
-    if (confirm('确定要删除此线索吗？')) {
+    if (confirm("确定要删除此线索吗？")) {
       await dataStore.deleteClue(id);
       await loadData();
     }
@@ -132,7 +113,7 @@ export const ScenesPage: React.FC = () => {
       {/* 场景面板 */}
       {activeTab === 'scenes' && (
         <div className="space-y-6">
-          {/* 操作栏 */}
+          {/* 操作区 */}
           <div className="flex gap-3">
             <Button variant="primary" onClick={handleCreateSampleScene}>
               + 创建示例场景
@@ -217,7 +198,7 @@ export const ScenesPage: React.FC = () => {
       {/* 线索面板 */}
       {activeTab === 'clues' && (
         <div className="space-y-6">
-          {/* 操作栏 */}
+          {/* 操作区 */}
           <div className="flex gap-3">
             <Button variant="primary" onClick={handleCreateSampleClue}>
               + 创建示例线索

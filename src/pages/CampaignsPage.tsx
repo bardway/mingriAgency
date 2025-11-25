@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { dataStore } from '@/storage';
-import { Campaign } from '@/domain';
+﻿import React, { useEffect, useState } from "react";
+import { Card } from "@/components/Card";
+import { Button } from "@/components/Button";
+import { useDataStore } from "@/storage";
+import { useModuleData } from "@/data";
+import { Campaign } from "@/domain";
 
 /**
  * 模组/团管理页面
  */
 export const CampaignsPage: React.FC = () => {
+  const dataStore = useDataStore();
+  const { createSampleCampaign } = useModuleData();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,24 +28,12 @@ export const CampaignsPage: React.FC = () => {
   };
 
   const handleCreateSample = async () => {
-    const now = new Date().toISOString();
-    const sample: Campaign = {
-      id: `campaign_${Date.now()}`,
-      title: '迷雾之城',
-      ruleSystem: 'COC7',
-      description: '一座笼罩在神秘迷雾中的古老城市，调查员们将揭开隐藏在雾中的真相...',
-      setting: '1920s 中国上海',
-      notes: '推荐3-5人团队，预计6-8次游戏',
-      createdAt: now,
-      updatedAt: now,
-    };
-    
-    await dataStore.saveCampaign(sample);
+    await dataStore.saveCampaign(createSampleCampaign());
     await loadCampaigns();
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm('确定要删除此模组吗？这将删除所有关联的场景和线索！')) {
+    if (confirm("确定要删除此模组吗？这将删除所有关联的场景和线索！")) {
       await dataStore.deleteCampaign(id);
       await loadCampaigns();
     }
@@ -71,7 +62,7 @@ export const CampaignsPage: React.FC = () => {
         </p>
       </div>
 
-      {/* 操作栏 */}
+      {/* 操作区 */}
       <div className="flex gap-3">
         <Button variant="primary" onClick={handleCreateSample}>
           + 创建示例模组
@@ -131,8 +122,8 @@ export const CampaignsPage: React.FC = () => {
 
               {/* 元信息 */}
               <div className="text-xs text-ww-slate-500 mb-4 space-y-1">
-                <div>创建于：{new Date(campaign.createdAt).toLocaleDateString('zh-CN')}</div>
-                <div>更新于：{new Date(campaign.updatedAt).toLocaleDateString('zh-CN')}</div>
+                <div>创建于：{new Date(campaign.createdAt).toLocaleDateString("zh-CN")}</div>
+                <div>更新于：{new Date(campaign.updatedAt).toLocaleDateString("zh-CN")}</div>
               </div>
 
               {/* 操作按钮 */}
@@ -140,7 +131,7 @@ export const CampaignsPage: React.FC = () => {
                 <Button
                   variant="secondary"
                   className="flex-1 text-sm"
-                  onClick={() => alert('模组详情功能开发中...')}
+                  onClick={() => alert("模组详情功能开发中...")}
                 >
                   查看详情
                 </Button>
@@ -169,7 +160,7 @@ export const CampaignsPage: React.FC = () => {
           <div>
             COC7：
             <span className="font-semibold text-ww-orange-600 ml-1">
-              {campaigns.filter((c) => c.ruleSystem === 'COC7').length}
+              {campaigns.filter((c) => c.ruleSystem === "COC7").length}
             </span>
           </div>
         </div>

@@ -1,12 +1,8 @@
-// ç»Ÿä¸€å¯¼å‡ºæ‰€æœ‰ç±»å‹å®šä¹‰
-export * from '../domain/Campaign';
-export * from '../domain/Character';
-export * from '../domain/Insanity';
-export * from '../domain/Session';
-export * from '../domain/Skill';
-export * from '../domain/Weapon';
+// ÀàĞÍ³ö¿Ú¾ÛºÏ
+export * from "@/domain";
+export * from "./coc7-knowledgebase";
 
-// é€šç”¨ç±»å‹å®šä¹‰
+// Í¨ÓÃÀàĞÍ¶¨Òå
 export type UUID = string;
 
 export interface BaseEntity {
@@ -15,7 +11,7 @@ export interface BaseEntity {
   updatedAt: Date;
 }
 
-// æ•°æ®åŠ è½½çŠ¶æ€
+// Êı¾İ¼ÓÔØ×´Ì¬
 export type LoadingState = 'idle' | 'loading' | 'success' | 'error';
 
 export interface AsyncData<T> {
