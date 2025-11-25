@@ -1,0 +1,12 @@
+[
+  { "term": "KP", "full": "Keeper", "zh": "守秘人", "description": "游戏主持人" },
+  { "term": "PC", "full": "Player Character", "zh": "玩家角色", "description": "玩家扮演的角色" },
+  { "term": "NPC", "full": "Non-Player Character", "zh": "非玩家角色", "description": "由KP控制的角色" },
+  { "term": "D100", "full": "Percentile Dice", "zh": "百分骰", "description": "投两个十面骰组成1-100的结果" },
+  { "term": "D6", "full": "Six-sided Die", "zh": "六面骰", "description": "普通骰子" },
+  { "term": "DB", "full": "Damage Bonus", "zh": "伤害加值", "description": "近战攻击的额外伤害" },
+  { "term": "HP", "full": "Hit Points", "zh": "生命值", "description": "承受伤害的能力" },
+  { "term": "SAN", "full": "Sanity", "zh": "理智值", "description": "精神健全程度" },
+  { "term": "MP", "full": "Magic Points", "zh": "魔法点", "description": "施法能量" },
+  { "term": "MOV", "full": "Movement Rate", "zh": "移动力", "description": "每回合移动距离" }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "amnesia",
+    "name": "失忆",
+    "type": "temporary",
+    "description": "暂时性或永久性地忘记特定事件或时间段的记忆"
+  },
+  {
+    "id": "paranoia",
+    "name": "偏执",
+    "type": "indefinite",
+    "description": "相信他人或组织对自己有敌意或阴谋"
+  },
+  {
+    "id": "phobia",
+    "name": "恐惧症",
+    "type": "indefinite",
+    "description": "对特定事物产生极度恐惧（需指定对象）"
+  },
+  {
+    "id": "mania",
+    "name": "躁狂",
+    "type": "indefinite",
+    "description": "过度兴奋、冲动行为、精力旺盛"
+  },
+  {
+    "id": "depression",
+    "name": "抑郁",
+    "type": "indefinite",
+    "description": "持续的悲伤、绝望、失去兴趣"
+  },
+  {
+    "id": "hallucinations",
+    "name": "幻觉",
+    "type": "temporary",
+    "description": "看到、听到或感觉到不存在的事物"
+  },
+  {
+    "id": "fainting",
+    "name": "昏厥",
+    "type": "temporary",
+    "description": "暂时失去意识"
+  },
+  {
+    "id": "physical_hysterics",
+    "name": "歇斯底里（身体）",
+    "type": "temporary",
+    "description": "无法控制的笑、哭或身体抽搐"
+  },
+  {
+    "id": "violence",
+    "name": "暴力倾向",
+    "type": "temporary",
+    "description": "攻击最近的人或物体"
+  },
+  {
+    "id": "paranoid_delusions",
+    "name": "妄想症",
+    "type": "indefinite",
+    "description": "坚信与现实不符的信念"
+  },
+  {
+    "id": "schizophrenia",
+    "name": "精神分裂",
+    "type": "permanent",
+    "description": "思维、情感和行为的严重紊乱"
+  },
+  {
+    "id": "catatonia",
+    "name": "紧张症",
+    "type": "temporary",
+    "description": "僵直不动或过度活跃"
+  },
+  {
+    "id": "kleptomania",
+    "name": "盗窃癖",
+    "type": "indefinite",
+    "description": "无法控制地偷窃物品"
+  },
+  {
+    "id": "pyromania",
+    "name": "纵火癖",
+    "type": "indefinite",
+    "description": "强烈的纵火冲动"
+  },
+  {
+    "id": "megalomania",
+    "name": "夸大妄想",
+    "type": "indefinite",
+    "description": "相信自己拥有超凡的能力或地位"
+  },
+  {
+    "id": "anxiety",
+    "name": "焦虑症",
+    "type": "indefinite",
+    "description": "持续的过度担忧和紧张"
+  },
+  {
+    "id": "compulsion",
+    "name": "强迫症",
+    "type": "indefinite",
+    "description": "重复执行特定行为或仪式"
+  },
+  {
+    "id": "multiple_personality",
+    "name": "人格分裂",
+    "type": "permanent",
+    "description": "拥有两个或更多独立的人格"
+  },
+  {
+    "id": "mythos_addiction",
+    "name": "神话成瘾",
+    "type": "permanent",
+    "description": "对克苏鲁神话知识产生病态的渴求"
+  },
+  {
+    "id": "dissociative_amnesia",
+    "name": "解离性失忆",
+    "type": "indefinite",
+    "description": "无法回忆起与创伤事件相关的记忆"
+  }
+]

@@ -1,0 +1,156 @@
+[
+  {
+    "id": "unarmed",
+    "name": "徒手",
+    "category": "melee",
+    "skill": "fighting_brawl",
+    "damage": "1d3",
+    "range": "touch",
+    "attacks": 1,
+    "ammo": null,
+    "malfunction": null
+  },
+  {
+    "id": "knife",
+    "name": "小刀",
+    "category": "melee",
+    "skill": "fighting_brawl",
+    "damage": "1d4",
+    "range": "touch",
+    "attacks": 1,
+    "ammo": null,
+    "malfunction": null
+  },
+  {
+    "id": "baseball_bat",
+    "name": "棒球棍",
+    "category": "melee",
+    "skill": "fighting_brawl",
+    "damage": "1d8",
+    "range": "touch",
+    "attacks": 1,
+    "ammo": null,
+    "malfunction": null
+  },
+  {
+    "id": "axe",
+    "name": "斧头",
+    "category": "melee",
+    "skill": "fighting_brawl",
+    "damage": "1d8+2",
+    "range": "touch",
+    "attacks": 1,
+    "ammo": null,
+    "malfunction": null
+  },
+  {
+    "id": "revolver_38",
+    "name": ".38 左轮手枪",
+    "category": "firearm",
+    "skill": "firearms_handgun",
+    "damage": "1d10",
+    "range": "15m",
+    "attacks": 3,
+    "ammo": 6,
+    "malfunction": 100
+  },
+  {
+    "id": "automatic_pistol_32",
+    "name": ".32 自动手枪",
+    "category": "firearm",
+    "skill": "firearms_handgun",
+    "damage": "1d8",
+    "range": "15m",
+    "attacks": 3,
+    "ammo": 8,
+    "malfunction": 99
+  },
+  {
+    "id": "automatic_pistol_45",
+    "name": ".45 自动手枪",
+    "category": "firearm",
+    "skill": "firearms_handgun",
+    "damage": "1d10+2",
+    "range": "15m",
+    "attacks": 3,
+    "ammo": 7,
+    "malfunction": 100
+  },
+  {
+    "id": "derringer",
+    "name": "袖珍手枪",
+    "category": "firearm",
+    "skill": "firearms_handgun",
+    "damage": "1d8",
+    "range": "3m",
+    "attacks": 1,
+    "ammo": 2,
+    "malfunction": 100
+  },
+  {
+    "id": "shotgun_12g",
+    "name": "12号霰弹枪",
+    "category": "firearm",
+    "skill": "firearms_rifle",
+    "damage": "4d6/2d6/1d6",
+    "range": "10m/20m/50m",
+    "attacks": 1,
+    "ammo": 2,
+    "malfunction": 100
+  },
+  {
+    "id": "rifle_30_06",
+    "name": ".30-06 步枪",
+    "category": "firearm",
+    "skill": "firearms_rifle",
+    "damage": "2d6+4",
+    "range": "110m",
+    "attacks": 1,
+    "ammo": 5,
+    "malfunction": 100
+  },
+  {
+    "id": "hunting_rifle",
+    "name": "猎枪",
+    "category": "firearm",
+    "skill": "firearms_rifle",
+    "damage": "2d6+4",
+    "range": "100m",
+    "attacks": 1,
+    "ammo": 5,
+    "malfunction": 100
+  },
+  {
+    "id": "submachine_gun",
+    "name": "冲锋枪",
+    "category": "firearm",
+    "skill": "firearms_rifle",
+    "damage": "1d10",
+    "range": "20m",
+    "attacks": "burst",
+    "ammo": 30,
+    "malfunction": 96
+  },
+  {
+    "id": "molotov_cocktail",
+    "name": "燃烧瓶",
+    "category": "thrown",
+    "skill": "throw",
+    "damage": "2d6 burn",
+    "range": "10m",
+    "attacks": 1,
+    "ammo": null,
+    "malfunction": null
+  },
+  {
+    "id": "dynamite",
+    "name": "炸药",
+    "category": "explosive",
+    "skill": "throw",
+    "damage": "5d6/3m",
+    "range": "15m",
+    "attacks": 1,
+    "ammo": null,
+    "malfunction": null
+  }
+]

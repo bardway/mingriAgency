@@ -1,0 +1,116 @@
+[
+  {
+    "id": "dice-rolling",
+    "category": "core",
+    "title": "检定规则",
+    "summary": "使用D100进行技能检定,投骰结果小于等于技能值即为成功",
+    "details": {
+      "regular": { "threshold": "≤技能值", "description": "普通成功" },
+      "hard": { "threshold": "≤技能值/2", "description": "困难成功" },
+      "extreme": { "threshold": "≤技能值/5", "description": "极难成功" },
+      "critical": { "threshold": "=1", "description": "大成功" },
+      "fumble": { "threshold": "=100 或 ≥96且>技能值", "description": "大失败" }
+    },
+    "source": { "book": "rulebook", "chapter": "基础规则", "pages": "85-92" }
+  },
+  {
+    "id": "opposed-roll",
+    "category": "core",
+    "title": "对抗检定",
+    "summary": "双方同时检定,成功等级高者获胜;等级相同则数值高者获胜",
+    "details": {
+      "order": ["极难成功", "困难成功", "普通成功", "失败"],
+      "tie": "若成功等级相同,比较检定数值,高者获胜"
+    },
+    "source": { "book": "rulebook", "chapter": "基础规则", "pages": "93-95" }
+  },
+  {
+    "id": "bonus-penalty-dice",
+    "category": "core",
+    "title": "奖励骰与惩罚骰",
+    "summary": "根据情况优势或劣势,增加或减少十位数的骰子",
+    "details": {
+      "bonus": "投2个或更多十位骰,选择最有利的结果",
+      "penalty": "投2个或更多十位骰,选择最不利的结果",
+      "max": "奖励骰或惩罚骰最多2个"
+    },
+    "source": { "book": "rulebook", "chapter": "基础规则", "pages": "96-98" }
+  },
+  {
+    "id": "combat-round",
+    "category": "combat",
+    "title": "战斗回合",
+    "summary": "战斗按DEX排序行动,一回合约12秒",
+    "details": {
+      "initiative": "按DEX降序排列行动顺序",
+      "actions": "每回合可进行一次主要动作(攻击/移动)",
+      "surprised": "突袭时受害者失去第一轮行动"
+    },
+    "source": { "book": "rulebook", "chapter": "战斗", "pages": "105-108" }
+  },
+  {
+    "id": "damage-armor",
+    "category": "combat",
+    "title": "伤害与护甲",
+    "summary": "伤害骰减去护甲值后对HP造成实际伤害",
+    "details": {
+      "calculation": "实际伤害 = 伤害骰 - 护甲值",
+      "majorWound": "单次伤害≥HP最大值的一半时为重伤",
+      "dying": "HP降至0时陷入濒死",
+      "death": "HP降至负数且绝对值≥体质时死亡"
+    },
+    "source": { "book": "rulebook", "chapter": "战斗", "pages": "112-118" }
+  },
+  {
+    "id": "sanity-check",
+    "category": "sanity",
+    "title": "理智检定",
+    "summary": "遭遇恐怖事件时进行理智检定,失败则损失理智值",
+    "details": {
+      "trigger": "目睹超自然、恐怖、神话生物等",
+      "loss": "格式为'成功损失/失败损失',如'0/1d6'",
+      "temporary": "短期疯狂:单场景损失≥5点SAN",
+      "indefinite": "不定期疯狂:单场景损失≥5点且总SAN≤1/5起始值",
+      "permanent": "永久疯狂:累计损失≥1/5起始值"
+    },
+    "source": { "book": "rulebook", "chapter": "理智", "pages": "130-145" }
+  },
+  {
+    "id": "skill-improvement",
+    "category": "character",
+    "title": "技能成长",
+    "summary": "检定成功后标记技能,冒险结束时进行成长检定",
+    "details": {
+      "marking": "检定成功后在技能旁打勾",
+      "growthCheck": "投D100 > 当前技能值则成长",
+      "growth": "成长时投1D10加到技能值上",
+      "limit": "技能值上限为99"
+    },
+    "source": { "book": "handbook", "chapter": "角色成长", "pages": "78-82" }
+  },
+  {
+    "id": "luck-spending",
+    "category": "character",
+    "title": "幸运值使用",
+    "summary": "幸运值可用于改善检定、减少伤害或避免不利情况",
+    "details": {
+      "usage": "消耗幸运点数来改变已投出的骰子结果",
+      "damageReduction": "可用幸运值抵消等量伤害",
+      "recovery": "通常在冒险间隙恢复至起始值",
+      "permanent": "某些情况下可能永久损失"
+    },
+    "source": { "book": "rulebook", "chapter": "基础规则", "pages": "99-101" }
+  },
+  {
+    "id": "pushing-roll",
+    "category": "core",
+    "title": "强行检定",
+    "summary": "失败后可选择强行再次检定,但失败后果更严重",
+    "details": {
+      "condition": "仅当首次检定失败时可选择",
+      "risk": "强行检定失败后果由KP决定且更严重",
+      "limit": "每个检定只能强行一次"
+    },
+    "source": { "book": "rulebook", "chapter": "基础规则", "pages": "102-104" }
+  }
+]

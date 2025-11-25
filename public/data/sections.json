@@ -1,0 +1,42 @@
+[
+  {
+    "id": "characteristics",
+    "slug": "characteristics",
+    "title": "角色属性",
+    "order": 1,
+    "description": "调查员的基础属性和派生属性",
+    "source": { "book": "handbook", "chapter": "角色创建", "pages": "10-15" }
+  },
+  {
+    "id": "skills",
+    "slug": "skills",
+    "title": "技能系统",
+    "order": 2,
+    "description": "技能检定、难度等级和成长规则",
+    "source": { "book": "rulebook", "chapter": "技能", "pages": "45-68" }
+  },
+  {
+    "id": "combat",
+    "slug": "combat",
+    "title": "战斗规则",
+    "order": 3,
+    "description": "回合制战斗、伤害和特殊动作",
+    "source": { "book": "rulebook", "chapter": "战斗", "pages": "105-125" }
+  },
+  {
+    "id": "sanity",
+    "slug": "sanity",
+    "title": "理智系统",
+    "order": 4,
+    "description": "理智值、理智检定和疯狂症状",
+    "source": { "book": "rulebook", "chapter": "理智", "pages": "130-152" }
+  },
+  {
+    "id": "mythos",
+    "slug": "mythos",
+    "title": "克苏鲁神话",
+    "order": 5,
+    "description": "神话知识、法术和神秘生物",
+    "source": { "book": "rulebook", "chapter": "神话", "pages": "180-220" }
+  }
+]

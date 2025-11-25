@@ -1,0 +1,24 @@
+{
+  "version": "7th Edition",
+  "lastUpdated": "2025-11-25",
+  "sources": [
+    {
+      "id": "rulebook",
+      "title": "COC7th 守秘人规则书",
+      "version": "2002c",
+      "type": "rulebook"
+    },
+    {
+      "id": "handbook",
+      "title": "调查员手册",
+      "version": "1.21",
+      "type": "handbook"
+    },
+    {
+      "id": "sheet",
+      "title": "COC7空白卡",
+      "version": "CY23Final",
+      "type": "template"
+    }
+  ]
+}

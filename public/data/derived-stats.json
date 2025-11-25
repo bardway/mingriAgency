@@ -1,0 +1,83 @@
+[
+  {
+    "id": "hp",
+    "abbr": "HP",
+    "name": "生命值",
+    "nameEn": "Hit Points",
+    "formula": "(CON + SIZ) / 10",
+    "round": "down",
+    "description": "承受伤害的能力,降至0时濒死"
+  },
+  {
+    "id": "san",
+    "abbr": "SAN",
+    "name": "理智值",
+    "nameEn": "Sanity",
+    "formula": "POW",
+    "max": "99 - 克苏鲁神话",
+    "description": "精神健全程度,过低会导致疯狂"
+  },
+  {
+    "id": "mp",
+    "abbr": "MP",
+    "name": "魔法点",
+    "nameEn": "Magic Points",
+    "formula": "POW / 5",
+    "round": "down",
+    "description": "施放法术所需的能量"
+  },
+  {
+    "id": "mov",
+    "abbr": "MOV",
+    "name": "移动力",
+    "nameEn": "Movement Rate",
+    "formula": {
+      "default": 8,
+      "conditions": [
+        { "if": "STR < SIZ && DEX < SIZ", "then": 7 },
+        { "if": "STR ≥ SIZ && DEX ≥ SIZ", "then": 9 },
+        { "if": "age > 40", "modifier": -1, "per": "decade" },
+        { "if": "age > 80", "then": 5 }
+      ]
+    },
+    "description": "每回合可移动的距离(米)"
+  },
+  {
+    "id": "db",
+    "abbr": "DB",
+    "name": "伤害加值",
+    "nameEn": "Damage Bonus",
+    "formula": "STR + SIZ",
+    "table": [
+      { "range": "2-64", "value": "-2" },
+      { "range": "65-84", "value": "-1" },
+      { "range": "85-124", "value": "0" },
+      { "range": "125-164", "value": "+1d4" },
+      { "range": "165-204", "value": "+1d6" },
+      { "range": "205-284", "value": "+2d6" },
+      { "range": "285-364", "value": "+3d6" },
+      { "range": "365-444", "value": "+4d6" },
+      { "range": "445-524", "value": "+5d6" }
+    ],
+    "description": "近战攻击的额外伤害"
+  },
+  {
+    "id": "build",
+    "abbr": "BUILD",
+    "name": "体格",
+    "nameEn": "Build",
+    "formula": "STR + SIZ",
+    "table": [
+      { "range": "2-64", "value": "-2" },
+      { "range": "65-84", "value": "-1" },
+      { "range": "85-124", "value": "0" },
+      { "range": "125-164", "value": "+1" },
+      { "range": "165-204", "value": "+2" },
+      { "range": "205-284", "value": "+3" },
+      { "range": "285-364", "value": "+4" },
+      { "range": "365-444", "value": "+5" },
+      { "range": "445-524", "value": "+6" }
+    ],
+    "description": "扭打和推动时的优势或劣势"
+  }
+]

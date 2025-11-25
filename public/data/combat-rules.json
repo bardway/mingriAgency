@@ -1,0 +1,44 @@
+{
+  "surprise": {
+    "description": "突袭规则",
+    "effect": "被突袭者失去第一轮行动机会",
+    "detection": "使用聆听或侦察检定察觉埋伏"
+  },
+  "maneuvers": [
+    {
+      "id": "aim",
+      "name": "瞄准",
+      "effect": "下回合攻击获得1个奖励骰",
+      "requirement": "必须保持静止"
+    },
+    {
+      "id": "fighting_back",
+      "name": "反击",
+      "effect": "对近战攻击者进行反击,双方同时伤害",
+      "requirement": "被近战攻击时可选择"
+    },
+    {
+      "id": "dodge",
+      "name": "闪避",
+      "effect": "使用闪避技能对抗攻击",
+      "requirement": "可对任何攻击使用"
+    },
+    {
+      "id": "outnumber",
+      "name": "围攻",
+      "effect": "每多一人攻击同一目标,获得1个奖励骰(最多2个)",
+      "requirement": "多人攻击同一目标"
+    }
+  ],
+  "range": {
+    "pointBlank": { "distance": "< 1米", "modifier": "+1奖励骰" },
+    "short": { "distance": "武器基础射程的一半", "modifier": "无修正" },
+    "long": { "distance": "武器基础射程", "modifier": "无修正" },
+    "extreme": { "distance": "武器基础射程的2倍", "modifier": "+1惩罚骰" }
+  },
+  "healing": {
+    "natural": "每天恢复1HP(需休息)",
+    "firstAid": "每场景对每个伤者一次,恢复1HP",
+    "medicine": "每天对每个伤者一次,恢复1d3HP"
+  }
+}

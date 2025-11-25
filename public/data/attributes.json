@@ -1,0 +1,140 @@
+[
+  {
+    "id": "str",
+    "abbr": "STR",
+    "name": "力量",
+    "nameEn": "Strength",
+    "description": "肌肉力量和体格,影响伤害加值和负重",
+    "rollFormula": "3D6×5",
+    "ageModifier": {
+      "15-19": { "rolls": 2, "select": "lower" },
+      "20-39": { "modifier": 0 },
+      "40-49": { "modifier": -5 },
+      "50-59": { "modifier": -10 },
+      "60-69": { "modifier": -20 },
+      "70-79": { "modifier": -40 },
+      "80-89": { "modifier": -80 }
+    },
+    "effects": ["伤害加值", "体格", "近战攻击"]
+  },
+  {
+    "id": "con",
+    "abbr": "CON",
+    "name": "体质",
+    "nameEn": "Constitution",
+    "description": "健康和活力,决定生命值和抗毒能力",
+    "rollFormula": "3D6×5",
+    "ageModifier": {
+      "15-19": { "rolls": 2, "select": "lower" },
+      "20-39": { "modifier": 0 },
+      "40-49": { "modifier": -5 },
+      "50-59": { "modifier": -10 },
+      "60-69": { "modifier": -20 },
+      "70-79": { "modifier": -40 },
+      "80-89": { "modifier": -80 }
+    },
+    "effects": ["生命值", "重伤阈值", "濒死判定"]
+  },
+  {
+    "id": "siz",
+    "abbr": "SIZ",
+    "name": "体型",
+    "nameEn": "Size",
+    "description": "身高和体重的综合,影响生命值和体格",
+    "rollFormula": "2D6+6×5",
+    "ageModifier": {
+      "15-19": { "rolls": 2, "select": "lower" },
+      "20-39": { "modifier": 0 },
+      "40-89": { "modifier": 0 }
+    },
+    "effects": ["生命值", "体格", "可见度"]
+  },
+  {
+    "id": "dex",
+    "abbr": "DEX",
+    "name": "敏捷",
+    "nameEn": "Dexterity",
+    "description": "灵活性和反应速度,影响战斗顺序",
+    "rollFormula": "3D6×5",
+    "ageModifier": {
+      "15-19": { "rolls": 2, "select": "lower" },
+      "20-39": { "modifier": 0 },
+      "40-49": { "modifier": -5 },
+      "50-59": { "modifier": -10 },
+      "60-69": { "modifier": -20 },
+      "70-79": { "modifier": -40 },
+      "80-89": { "modifier": -80 }
+    },
+    "effects": ["闪避", "战斗顺序", "精细操作"]
+  },
+  {
+    "id": "app",
+    "abbr": "APP",
+    "name": "外貌",
+    "nameEn": "Appearance",
+    "description": "吸引力和魅力,影响社交互动",
+    "rollFormula": "3D6×5",
+    "ageModifier": {
+      "15-19": { "rolls": 2, "select": "lower" },
+      "20-39": { "modifier": 0 },
+      "40-89": { "modifier": 0 }
+    },
+    "effects": ["第一印象", "魅惑", "社交检定"]
+  },
+  {
+    "id": "int",
+    "abbr": "INT",
+    "name": "智力",
+    "nameEn": "Intelligence",
+    "description": "学习和推理能力,影响技能点数",
+    "rollFormula": "2D6+6×5",
+    "ageModifier": {
+      "15-19": { "rolls": 2, "select": "lower" },
+      "20-39": { "modifier": 0 },
+      "40-89": { "modifier": 0 }
+    },
+    "effects": ["个人兴趣点数", "理解力", "学习速度"]
+  },
+  {
+    "id": "pow",
+    "abbr": "POW",
+    "name": "意志",
+    "nameEn": "Power",
+    "description": "精神力量和魔力,决定理智值和魔法点",
+    "rollFormula": "3D6×5",
+    "ageModifier": {
+      "15-19": { "rolls": 2, "select": "higher" },
+      "20-39": { "modifier": 0 },
+      "40-89": { "modifier": 0 }
+    },
+    "effects": ["理智值起始值", "魔法点", "意志检定"]
+  },
+  {
+    "id": "edu",
+    "abbr": "EDU",
+    "name": "教育",
+    "nameEn": "Education",
+    "description": "正规教育和知识积累,影响技能点数",
+    "rollFormula": "2D6+6×5 或 3D6+3×5",
+    "ageModifier": {
+      "15-19": { "rolls": 2, "select": "lower" },
+      "20-39": { "modifier": 0 },
+      "40-49": { "eduCheck": 1 },
+      "50-59": { "eduCheck": 2 },
+      "60-69": { "eduCheck": 3 },
+      "70-79": { "eduCheck": 4 },
+      "80-89": { "eduCheck": 4 }
+    },
+    "effects": ["职业技能点数", "母语", "知识检定"]
+  },
+  {
+    "id": "luck",
+    "abbr": "LUCK",
+    "name": "幸运",
+    "nameEn": "Luck",
+    "description": "运气和命运的眷顾,可消耗改变结果",
+    "rollFormula": "3D6×5",
+    "ageModifier": null,
+    "effects": ["改善检定", "减少伤害", "避免厄运"]
+  }
+]

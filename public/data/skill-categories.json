@@ -1,0 +1,9 @@
+[
+  { "id": "combat", "name": "战斗技能", "order": 1 },
+  { "id": "physical", "name": "身体技能", "order": 2 },
+  { "id": "perception", "name": "感知技能", "order": 3 },
+  { "id": "interpersonal", "name": "人际技能", "order": 4 },
+  { "id": "academic", "name": "学术技能", "order": 5 },
+  { "id": "practical", "name": "实用技能", "order": 6 },
+  { "id": "special", "name": "特殊技能", "order": 7 }
+]

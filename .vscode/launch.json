@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "🌐 Launch Chrome 调试",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMaps": true,
+      "preLaunchTask": "🚀 启动开发服务器"
+    },
+    {
+      "type": "msedge",
+      "request": "launch",
+      "name": "🌐 Launch Edge 调试",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMaps": true,
+      "preLaunchTask": "🚀 启动开发服务器"
+    }
+  ]
+}
