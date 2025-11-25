@@ -172,11 +172,10 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <div className="p-4 border-t border-ww-slate-300/50 relative">
           <div className="glass rounded-lg px-3 py-2 text-center">
             <p className="text-xs text-ww-slate-500 font-mono tracking-wider">
-              SYSTEM v0.2.1
+              SYSTEM v0.0.1
             </p>
             <div className="flex items-center justify-center gap-2 mt-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-ww-orange-500 pulse-glow"></span>
-              <span className="text-xs text-ww-slate-600">ONLINE</span>
+              <span className="text-xs text-ww-slate-600">LEX</span>
             </div>
           </div>
         </div>
