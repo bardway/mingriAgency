@@ -20,8 +20,10 @@ import { SanityPage } from '@/pages/SanityPage';
  * 应用路由配置
  */
 export const AppRouter: React.FC = () => {
+  const basename = new URL(import.meta.env.BASE_URL, window.location.href).pathname;
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AppLayout>
         <Routes>
           <Route path="/" element={<DashboardPage />} />
