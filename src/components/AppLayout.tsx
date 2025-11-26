@@ -82,10 +82,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       {/* 侧边栏 - 玻璃态效果 */}
       <aside className={clsx(
         'w-72 frosted-glass border-r border-ww-slate-300/50 flex flex-col floating-layer z-50 transition-transform duration-300',
-        // 移动端: fixed 定位，通过 transform 控制显隐
-        // 桌面端: relative 定位,始终显示
-        'fixed inset-y-0 left-0 lg:relative lg:translate-x-0',
-        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        // 移动端: fixed 定位
+        'fixed inset-y-0 left-0 max-lg:z-50',
+        // 桌面端: relative 定位，始终显示
+        'lg:relative lg:translate-x-0',
+        // 移动端 transform 控制
+        isMobileMenuOpen ? 'max-lg:translate-x-0' : 'max-lg:-translate-x-full'
       )}>
         {/* 顶部发光线 */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ww-orange-500/40 to-transparent"></div>
