@@ -3,7 +3,7 @@ import { IDataStore } from './IDataStore';
 import { Character, Campaign, SessionState, SceneTemplate, ClueTemplate } from '@/domain';
 
 /**
- * ´æ´¢¼üÃû³£Á¿
+ * å­˜å‚¨é”®åå¸¸é‡
  */
 const STORAGE_KEYS = {
   CHARACTERS: 'characters',
@@ -17,15 +17,15 @@ const STORAGE_KEYS = {
 const CURRENT_SCHEMA_VERSION = '1.0.0';
 
 /**
- * »ùÓÚ localForage µÄ±¾µØÊı¾İ´æ´¢ÊµÏÖ
+ * åŸºäº localForage çš„æœ¬åœ°æ•°æ®å­˜å‚¨å®ç°
  */
 export class LocalDataStore implements IDataStore {
   constructor() {
-    // ÅäÖÃ localForage
+    // é…ç½® localForage
     localforage.config({
       name: 'MingriAgency',
       storeName: 'cocKpData',
-      description: 'COC7 KP ÖúÊÖ±¾µØÊı¾İ´æ´¢',
+      description: 'COC7 KP åŠ©æ‰‹æœ¬åœ°æ•°æ®å­˜å‚¨',
     });
     
     this.initializeSchemaVersion();
@@ -38,7 +38,7 @@ export class LocalDataStore implements IDataStore {
     }
   }
 
-  // ===== ½ÇÉ«Ïà¹Ø =====
+  // ===== è§’è‰²æ“ä½œ =====
   async loadCharacters(): Promise<Character[]> {
     const characters = await localforage.getItem<Character[]>(STORAGE_KEYS.CHARACTERS);
     return characters || [];
@@ -68,7 +68,7 @@ export class LocalDataStore implements IDataStore {
     await localforage.setItem(STORAGE_KEYS.CHARACTERS, filtered);
   }
 
-  // ===== Ä£×é/ÍÅÏà¹Ø =====
+  // ===== æ¨¡ç»„/æˆ˜å½¹æ“ä½œ =====
   async loadCampaigns(): Promise<Campaign[]> {
     const campaigns = await localforage.getItem<Campaign[]>(STORAGE_KEYS.CAMPAIGNS);
     return campaigns || [];
@@ -98,7 +98,7 @@ export class LocalDataStore implements IDataStore {
     await localforage.setItem(STORAGE_KEYS.CAMPAIGNS, filtered);
   }
 
-  // ===== Session Ïà¹Ø =====
+  // ===== Session æ“ä½œ =====
   async loadSessions(): Promise<SessionState[]> {
     const sessions = await localforage.getItem<SessionState[]>(STORAGE_KEYS.SESSIONS);
     return sessions || [];
@@ -128,7 +128,7 @@ export class LocalDataStore implements IDataStore {
     await localforage.setItem(STORAGE_KEYS.SESSIONS, filtered);
   }
 
-  // ===== ³¡¾°ÓëÏßË÷Ïà¹Ø =====
+  // ===== åœºæ™¯ä¸çº¿ç´¢æ“ä½œ =====
   async loadScenes(): Promise<SceneTemplate[]> {
     const scenes = await localforage.getItem<SceneTemplate[]>(STORAGE_KEYS.SCENES);
     return scenes || [];
@@ -187,7 +187,7 @@ export class LocalDataStore implements IDataStore {
     await localforage.setItem(STORAGE_KEYS.CLUES, filtered);
   }
 
-  // ===== Êı¾İ¹ÜÀí =====
+  // ===== æ•°æ®å¯¼å…¥å¯¼å‡º =====
   async exportAllData(): Promise<string> {
     const data = {
       schemaVersion: CURRENT_SCHEMA_VERSION,
@@ -206,12 +206,15 @@ export class LocalDataStore implements IDataStore {
     try {
       const data = JSON.parse(jsonData);
       
-      // ¼òµ¥µÄ°æ±¾Ğ£Ñé
+      // ç®€å•çš„ç‰ˆæœ¬æ ¡éªŒ
       if (!data.schemaVersion) {
-        throw new Error('È±ÉÙ schemaVersion ×Ö¶Î');
+        throw new Error('ç¼ºå°‘ schemaVersion å­—æ®µ');
       }
       
-      // TODO: ¸üÑÏ¸ñµÄÊı¾İĞ£Ñé
+      // æ•°æ®ç»“æ„éªŒè¯
+      if (data.schemaVersion !== CURRENT_SCHEMA_VERSION) {
+        console.warn(`æ•°æ®ç‰ˆæœ¬ä¸åŒ¹é…: ${data.schemaVersion} vs ${CURRENT_SCHEMA_VERSION}`);
+      }
       
       if (data.characters) {
         await localforage.setItem(STORAGE_KEYS.CHARACTERS, data.characters);
@@ -230,13 +233,13 @@ export class LocalDataStore implements IDataStore {
       }
       
     } catch (error) {
-      throw new Error(`µ¼ÈëÊı¾İÊ§°Ü: ${error}`);
+      throw new Error(`å¯¼å…¥æ•°æ®å¤±è´¥: ${error}`);
     }
   }
 
   async clearAllData(): Promise<void> {
     await localforage.clear();
-    // ÖØĞÂ³õÊ¼»¯°æ±¾ºÅ
+    // é‡æ–°åˆå§‹åŒ–ç‰ˆæœ¬å·
     await this.initializeSchemaVersion();
   }
 }

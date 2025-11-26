@@ -325,11 +325,9 @@ function QuickRuleReference() {
 
 | 文件 | 路径 | 说明 |
 |------|------|------|
-| 数据文件 | `public/data/coc7-knowledgebase.json` | 主数据（约50KB） |
+| 数据文件 | `public/data/*.json` | 拆分的模块化数据文件 |
 | 类型定义 | `src/types/coc7-knowledgebase.d.ts` | TypeScript 接口 |
 | Hooks | `src/hooks/useCoc7Data.ts` | 自定义 Hooks |
-| 示例组件 | `src/components/DemoCoc7.tsx` | 演示组件 |
-| 构建日志 | `BUILDLOG.md` | 构建过程记录 |
 
 ---
 
@@ -337,22 +335,18 @@ function QuickRuleReference() {
 
 ### 添加新技能
 
-直接编辑 `public/data/coc7-knowledgebase.json`:
+直接编辑 `public/data/skills.json`:
 
 ```json
 {
-  "skills": [
-    {
-      "id": "my_custom_skill",
-      "name": "自定义技能",
-      "nameEn": "Custom Skill",
-      "category": "practical",
-      "base": 10,
-      "hasSpecialization": false,
-      "description": "这是一个自定义技能",
-      "source": { "book": "custom", "pages": "N/A" }
-    }
-  ]
+  "id": "my_custom_skill",
+  "name": "自定义技能",
+  "nameEn": "Custom Skill",
+  "category": "practical",
+  "base": 10,
+  "hasSpecialization": false,
+  "description": "这是一个自定义技能",
+  "source": { "book": "custom", "pages": "N/A" }
 }
 ```
 
@@ -368,15 +362,14 @@ function QuickRuleReference() {
 1. **数据缓存**: Hook 会缓存数据，避免重复请求
 2. **类型安全**: 使用 TypeScript 类型定义确保类型正确
 3. **错误处理**: 始终检查 `loading` 和 `error` 状态
-4. **性能**: 数据文件约50KB，首次加载后缓存在内存
+4. **性能**: 数据文件模块化拆分，按需加载
 
 ---
 
 ## 📚 参考资料
 
-- [BUILDLOG.md](./BUILDLOG.md) - 构建过程详情
+- [项目结构说明](./PROJECT_STRUCTURE.md)
 - [COC7 官方规则](https://www.chaosium.com/call-of-cthulhu-rpg/)
-- [项目结构说明](./docs/PROJECT_STRUCTURE.md)
 
 ---
 

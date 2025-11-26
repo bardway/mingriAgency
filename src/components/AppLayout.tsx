@@ -1,6 +1,7 @@
 ﻿import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
+import { ToastContainer } from './Toast';
 
 interface NavItem {
   path: string;
@@ -249,6 +250,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           {children}
         </div>
       </main>
+      
+      {/* Toast 容器 */}
+      <ToastContainer />
     </div>
   );
 };

@@ -88,26 +88,35 @@ JSON 格式的静态数据，运行时通过 fetch 加载。采用模块化拆�
 - `derived-stats.json` - 派生属性(HP、SAN、MP等)
 - `skill-categories.json` - 技能分类
 - `skills.json` - 技能完整数据
+- `skills-extended.json` - 技能扩展数据（110项）
+- `skills-full.json` - 技能完整说明（含难度、示例）
 - `occupations.json` - 职业数据
+- `occupations-extended.json` - 职业扩展数据（230项）
+- `occupations-full.json` - 职业完整数据
 - `glossary.json` - 术语表
 - `combat-rules.json` - 战斗规则
-- `weapons.json` - 武器列表
+- `weapons.json` - 武器列表（104项）
+- `armor.json` - 防具列表（74项）
+- `vehicles.json` - 载具列表（63项）
 - `insanities.json` - 疯狂症状列表
+- `insanity-symptoms.json` - 疯狂症状详细说明
+- `insanity-manifestations.json` - 疯狂表现（21项）
+- `prices.json` - 物品价格表
 
-> 详细说明请参考 [数据拆分指南](./DATA_SPLIT_GUIDE.md)
+> 所有数据采用模块化拆分，提升性能和可维护性
 
 ### `/docs` - 项目文档
 所有项目相关的文档集中存放。
 
-- `QUICKSTART.md` - 快速开始指南
-- `DESIGN_GUIDE.md` - 设计规范
-- `DEVELOPMENT.md` - 开发者指南
-- `CHANGELOG.md` - 版本更新日志
-- `COLOR_SCHEME.md` - 配色方案详解
-- `PROJECT_STRUCTURE.md` - 本文档
+- `COC7_KNOWLEDGE_GUIDE.md` - COC7 知识库使用指南
+- `PROJECT_STRUCTURE.md` - 项目结构说明（本文档）
 
 ### `/assets` - 参考资料
-PDF 等参考文档。
+PDF 等参考文档，供开发时查阅。
+
+- `refer/COC7空白卡CY23Final.xlsx` - COC7 角色卡模板
+- `refer/COC7th守秘人规则书2002c.pdf` - 守秘人规则书
+- `refer/调查员手册1.21.pdf` - 调查员手册
 
 ---
 

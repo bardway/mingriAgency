@@ -2,6 +2,7 @@
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
 import { useDataStore } from "@/storage";
+import { showToast } from "@/utils";
 
 /**
  * 设置页面
@@ -20,9 +21,10 @@ export const SettingsPage: React.FC = () => {
       a.download = `mingri-coc7-backup-${Date.now()}.json`;
       a.click();
       URL.revokeObjectURL(url);
+      showToast('数据导出成功！', 'success');
     } catch (error) {
       console.error("导出失败:", error);
-      alert("导出失败，请重试");
+      showToast('导出失败，请重试', 'error');
     }
   };
 
