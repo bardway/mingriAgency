@@ -1,8 +1,9 @@
-// ÀàÐÍ³ö¿Ú¾ÛºÏ
+// ï¿½ï¿½ï¿½Í³ï¿½ï¿½Ú¾Ûºï¿½
 export * from "@/domain";
 export * from "./coc7-knowledgebase";
+export * from "./equipment";
 
-// Í¨ÓÃÀàÐÍ¶¨Òå
+// Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½
 export type UUID = string;
 
 export interface BaseEntity {
@@ -11,7 +12,7 @@ export interface BaseEntity {
   updatedAt: Date;
 }
 
-// Êý¾Ý¼ÓÔØ×´Ì¬
+// ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½×´Ì¬
 export type LoadingState = 'idle' | 'loading' | 'success' | 'error';
 
 export interface AsyncData<T> {

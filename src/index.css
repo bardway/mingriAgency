@@ -31,12 +31,17 @@ body {
   box-sizing: border-box;
 }
 
-/* 玻璃态效果基础类 */
+/* 玻璃态效果基础类 - 增强立体感 */
 .glass {
   background: rgba(248, 245, 242, 0.75);  /* 基于象牙白的透明版本 */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(188, 190, 192, 0.5);  /* Pewter 边框 */
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.08),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.03);
 }
 
 .glass-strong {
@@ -44,14 +49,22 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(188, 190, 192, 0.7);
+  box-shadow: 
+    0 8px 16px -4px rgba(0, 0, 0, 0.1),
+    0 4px 8px -4px rgba(0, 0, 0, 0.06),
+    inset 0 2px 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.04);
 }
 
-/* 发光边框效果 */
+/* 发光边框效果 - 增强立体感 */
 .glow-border {
   position: relative;
   border: 1px solid rgba(188, 190, 192, 0.2);  /* Pewter 边框 */
   box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04),
     0 0 10px rgba(188, 190, 192, 0.08),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.8),
     inset 0 0 10px rgba(188, 190, 192, 0.04);
 }
 
@@ -166,16 +179,19 @@ body {
   opacity: 1;
 }
 
-/* 数据面板效果 */
+/* 数据面板效果 - 增强立体感 */
 .data-panel {
   position: relative;
   background: rgba(248, 245, 242, 0.82);  /* 基于象牙白 */
   backdrop-filter: blur(12px);
   border: 1px solid rgba(188, 190, 192, 0.6);  /* Pewter 边框 */
   box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.12),
+    0 8px 10px -6px rgba(0, 0, 0, 0.08),
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+    inset 0 2px 0 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.04);
 }
 
 .data-panel::before {
@@ -283,4 +299,296 @@ body {
   * {
     -webkit-overflow-scrolling: touch;
   }
+}
+
+/* ========== 立体感增强工具类 ========== */
+
+/* 卡片悬浮效果 - 增强景深 */
+.card-elevated {
+  position: relative;
+  transform: translateZ(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevated::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card-elevated:hover {
+  transform: translateY(-4px) translateZ(0);
+  box-shadow: 
+    0 20px 40px -8px rgba(0, 0, 0, 0.15),
+    0 12px 24px -8px rgba(0, 0, 0, 0.1),
+    0 8px 16px -8px rgba(0, 0, 0, 0.08),
+    inset 0 2px 4px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -3px 6px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card-elevated:hover::before {
+  opacity: 1;
+}
+
+/* 浮雕效果 */
+.embossed {
+  box-shadow: 
+    inset 2px 2px 4px rgba(0, 0, 0, 0.08),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.9),
+    0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.debossed {
+  box-shadow: 
+    inset -2px -2px 4px rgba(0, 0, 0, 0.08),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+    0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* 层叠景深效果 */
+.layered-depth {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.layered-depth::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: inherit;
+  border-radius: inherit;
+  filter: blur(8px);
+  opacity: 0.5;
+  z-index: -1;
+  transform: translateZ(-8px);
+}
+
+/* 发光高光效果 */
+.glow-highlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-highlight::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.glow-highlight:hover::after {
+  opacity: 1;
+}
+
+/* 边缘光晕 */
+.edge-glow {
+  position: relative;
+  border: 1px solid rgba(188, 190, 192, 0.3);
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    0 0 20px -5px rgba(188, 190, 192, 0.2);
+}
+
+/* 渐变光泽面 */
+.glossy-surface {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+}
+
+.glossy-surface::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    transparent 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* 磨砂玻璃增强 */
+.frosted-glass {
+  background: rgba(248, 245, 242, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(188, 190, 192, 0.4);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.12),
+    0 4px 16px 0 rgba(0, 0, 0, 0.08),
+    inset 0 2px 4px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* 柔和内阴影 */
+.soft-inset {
+  box-shadow: 
+    inset 0 2px 8px rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* 悬浮层效果 */
+.floating-layer {
+  box-shadow: 
+    0 12px 28px -4px rgba(0, 0, 0, 0.12),
+    0 6px 14px -4px rgba(0, 0, 0, 0.08),
+    0 4px 8px -2px rgba(0, 0, 0, 0.05),
+    inset 0 2px 3px 0 rgba(255, 255, 255, 0.92),
+    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.04);
+  transform: translateZ(0);
+}
+
+/* 深度层级效果 */
+.depth-layer-1 {
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+  transform: translateZ(0);
+}
+
+.depth-layer-2 {
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.85);
+  transform: translateZ(0);
+}
+
+.depth-layer-3 {
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.08),
+    inset 0 2px 3px rgba(255, 255, 255, 0.9);
+  transform: translateZ(0);
+}
+
+/* 微光扫过效果 */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.shimmer-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-effect::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+}
+
+/* 立体按钮效果 */
+.btn-3d {
+  position: relative;
+  transform: translateY(0);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.04);
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.12),
+    0 4px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-3d:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    inset 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* 反光面效果 */
+.reflective-surface {
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.03) 100%
+  );
+}
+
+/* 凹陷容器 */
+.recessed-container {
+  box-shadow: 
+    inset 0 2px 6px rgba(0, 0, 0, 0.1),
+    inset 0 1px 3px rgba(0, 0, 0, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.8);
+  background: rgba(229, 218, 206, 0.5);
+}
+
+/* 光晕渐变 */
+.halo-gradient {
+  position: relative;
+}
+
+.halo-gradient::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    circle at center,
+    rgba(188, 190, 192, 0.08) 0%,
+    transparent 70%
+  );
+  z-index: -1;
+  pointer-events: none;
 }

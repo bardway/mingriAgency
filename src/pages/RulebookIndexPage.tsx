@@ -14,7 +14,7 @@ const categories: RuleCategory[] = [
   {
     id: 'rules',
     title: '核心规则',
-    icon: '▣',
+    icon: '📋',
     description: '检定、对抗、成长等基础规则',
     path: '/rulebook/rules',
     color: 'from-slate-500/15 to-gray-500/15 border-slate-500/30'
@@ -22,7 +22,7 @@ const categories: RuleCategory[] = [
   {
     id: 'attributes',
     title: '角色属性',
-    icon: '◈',
+    icon: '⭐',
     description: 'STR、CON等基础与派生属性',
     path: '/rulebook/attributes',
     color: 'from-stone-500/15 to-neutral-500/15 border-stone-500/30'
@@ -30,15 +30,23 @@ const categories: RuleCategory[] = [
   {
     id: 'skills',
     title: '技能系统',
-    icon: '◐',
+    icon: '🎯',
     description: '47项技能详细说明',
     path: '/rulebook/skills',
     color: 'from-zinc-500/15 to-gray-600/15 border-zinc-500/30'
   },
   {
+    id: 'equipment',
+    title: '装备系统',
+    icon: '⚔️',
+    description: '武器、防具、载具资料库',
+    path: '/rulebook/equipment',
+    color: 'from-amber-500/15 to-orange-500/15 border-amber-500/30'
+  },
+  {
     id: 'combat',
     title: '战斗规则',
-    icon: '⬢',
+    icon: '⚡',
     description: '战斗回合、伤害、武器数据',
     path: '/rulebook/combat',
     color: 'from-slate-600/15 to-gray-700/15 border-slate-600/30'
@@ -46,7 +54,7 @@ const categories: RuleCategory[] = [
   {
     id: 'sanity',
     title: '理智系统',
-    icon: '◉',
+    icon: '🧠',
     description: '理智检定、疯狂症状',
     path: '/rulebook/sanity',
     color: 'from-neutral-600/15 to-stone-600/15 border-neutral-600/30'
@@ -54,7 +62,7 @@ const categories: RuleCategory[] = [
   {
     id: 'occupations',
     title: '职业速查',
-    icon: '◫',
+    icon: '👔',
     description: '职业技能与配置',
     path: '/rulebook/occupations',
     color: 'from-gray-500/15 to-slate-500/15 border-gray-500/30'
@@ -82,7 +90,7 @@ export const RulebookIndexPage: React.FC = () => {
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-3">
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-ww-slate-500/20 to-ww-slate-600/20 border border-ww-slate-500/40 flex items-center justify-center shadow-glow">
-            <span className="text-2xl">▣</span>
+            <span className="text-2xl">📚</span>
           </div>
           <div>
             <h1 className="text-3xl font-bold text-ww-slate-800">COC7 规则库</h1>
@@ -102,7 +110,7 @@ export const RulebookIndexPage: React.FC = () => {
                        focus:outline-none focus:border-red-900/50 focus:shadow-glow-sm
                        text-ww-slate-800 placeholder-ww-slate-400 transition-all duration-300"
             />
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-red-900">⌕</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">🔍</span>
             {searchQuery && (
               <button
                 type="button"

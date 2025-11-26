@@ -15,6 +15,7 @@ import { AttributesPage } from '@/pages/AttributesPage';
 import { OccupationsPage } from '@/pages/OccupationsPage';
 import { CombatPage } from '@/pages/CombatPage';
 import { SanityPage } from '@/pages/SanityPage';
+import { EquipmentPage } from '@/pages/EquipmentPage';
 
 /**
  * 应用路由配置
@@ -42,6 +43,7 @@ export const AppRouter: React.FC = () => {
           <Route path="/rulebook/occupations" element={<OccupationsPage />} />
           <Route path="/rulebook/combat" element={<CombatPage />} />
           <Route path="/rulebook/sanity" element={<SanityPage />} />
+          <Route path="/rulebook/equipment" element={<EquipmentPage />} />
         </Routes>
       </AppLayout>
     </BrowserRouter>

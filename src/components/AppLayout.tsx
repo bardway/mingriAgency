@@ -81,9 +81,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
       {/* 侧边栏 - 玻璃态效果 */}
       <aside className={clsx(
-        'w-72 glass-strong border-r border-ww-slate-300/50 flex flex-col shadow-xl z-50 transition-transform duration-300',
+        'w-72 frosted-glass border-r border-ww-slate-300/50 flex flex-col floating-layer z-50 transition-transform duration-300',
         // 移动端: fixed 定位，通过 transform 控制显隐
-        // 桌面端: relative 定位，始终显示
+        // 桌面端: relative 定位,始终显示
         'fixed inset-y-0 left-0 lg:relative lg:translate-x-0',
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       )}>
@@ -91,9 +91,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ww-orange-500/40 to-transparent"></div>
         
         {/* Logo */}
-        <div className="p-6 border-b border-ww-slate-300/50 relative hidden lg:block">
+        <div className="p-6 border-b border-ww-slate-300/50 relative hidden lg:block glossy-surface">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-ww-orange-500/15 to-ww-amber-500/15 border border-ww-orange-500/30 flex items-center justify-center shadow-glow">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-ww-orange-500/15 to-ww-amber-500/15 border border-ww-orange-500/30 flex items-center justify-center edge-glow">
               <span className="text-2xl text-red-900">◉</span>
             </div>
             <div>
@@ -116,8 +116,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 className={clsx(
                   'group flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 relative overflow-hidden',
                   isActive
-                    ? 'glass text-ww-orange-500 shadow-glow-sm border border-ww-orange-500/40 font-semibold'
-                    : 'text-ww-slate-600 hover:text-ww-slate-800 hover:bg-ww-slate-200/50'
+                    ? 'frosted-glass text-ww-orange-500 edge-glow border border-ww-orange-500/40 font-semibold depth-layer-2'
+                    : 'text-ww-slate-600 hover:text-ww-slate-800 hover:bg-ww-slate-200/50 glow-highlight'
                 )}
               >
                 {/* 激活指示器 */}
@@ -153,8 +153,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             className={clsx(
               'group block relative overflow-hidden rounded-xl transition-all duration-300',
               location.pathname.startsWith('/rulebook')
-                ? 'shadow-glow'
-                : 'hover:shadow-glow-sm'
+                ? 'floating-layer'
+                : 'hover:depth-layer-2'
             )}
           >
             {/* 渐变背景 */}
@@ -167,7 +167,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             
             {/* 边框和玻璃效果 */}
             <div className={clsx(
-              'relative glass-strong border rounded-xl p-4 transition-all duration-300',
+              'relative frosted-glass border rounded-xl p-4 transition-all duration-300',
               location.pathname.startsWith('/rulebook')
                 ? 'border-red-900/50'
                 : 'border-ww-slate-300/50 group-hover:border-red-900/40'
@@ -179,12 +179,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 {/* 图标 */}
                 <div className={clsx(
                   'w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300',
-                  'bg-gradient-to-br from-gray-500/20 to-red-900/20 border',
+                  'bg-gradient-to-br from-gray-500/20 to-red-900/20 border edge-glow',
                   location.pathname.startsWith('/rulebook')
-                    ? 'border-red-900/50 shadow-glow scale-110'
+                    ? 'border-red-900/50 scale-110'
                     : 'border-gray-500/30 group-hover:scale-105'
                 )}>
-                  <span className="text-xl text-red-900">▦</span>
+                  <span className="text-xl">📚</span>
                 </div>
                 
                 <div className="flex-1">
@@ -225,8 +225,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </div>
 
         {/* 底部信息 */}
-        <div className="p-4 border-t border-ww-slate-300/50 relative">
-          <div className="glass rounded-lg px-3 py-2 text-center">
+        <div className="p-4 border-t border-ww-slate-300/50 relative glossy-surface">
+          <div className="glass rounded-lg px-3 py-2 text-center soft-inset">
             <p className="text-xs text-ww-slate-500 font-mono tracking-wider">
               SYSTEM v0.0.1
             </p>
