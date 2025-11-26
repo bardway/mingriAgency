@@ -66,25 +66,25 @@ export const ScenesPage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* 页面标题 */}
       <div className="relative">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-1.5 h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
+        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+          <div className="w-1 sm:w-1.5 h-6 sm:h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
             场景与线索
           </h1>
         </div>
-        <p className="text-ww-slate-600 ml-5 tracking-wide">
+        <p className="text-sm sm:text-base text-ww-slate-600 ml-3 sm:ml-5 tracking-wide">
           构建模组的场景与线索体系
         </p>
       </div>
 
       {/* 标签切换 */}
-      <div className="flex gap-2 border-b border-ww-slate-200">
+      <div className="flex gap-2 border-b border-ww-slate-200 overflow-x-auto">
         <button
           onClick={() => setActiveTab('scenes')}
-          className={`px-6 py-3 font-medium transition-all ${
+          className={`px-4 sm:px-6 py-2.5 sm:py-3 font-medium transition-all whitespace-nowrap ${
             activeTab === 'scenes'
               ? 'text-ww-orange-600 border-b-2 border-ww-orange-500'
               : 'text-ww-slate-600 hover:text-ww-slate-900'
@@ -97,7 +97,7 @@ export const ScenesPage: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('clues')}
-          className={`px-6 py-3 font-medium transition-all ${
+          className={`px-4 sm:px-6 py-2.5 sm:py-3 font-medium transition-all whitespace-nowrap ${
             activeTab === 'clues'
               ? 'text-ww-orange-600 border-b-2 border-ww-orange-500'
               : 'text-ww-slate-600 hover:text-ww-slate-900'

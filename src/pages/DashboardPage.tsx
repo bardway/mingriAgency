@@ -39,30 +39,30 @@ export const DashboardPage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* 页面标题 */}
       <div className="relative">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-1.5 h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
+        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+          <div className="w-1 sm:w-1.5 h-6 sm:h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
             系统概览
           </h1>
         </div>
-        <p className="text-ww-slate-600 ml-5 tracking-wide">欢迎回到明日调查局指挥中心</p>
+        <p className="text-sm sm:text-base text-ww-slate-600 ml-3 sm:ml-5 tracking-wide">欢迎回到明日调查局指挥中心</p>
       </div>
 
       {/* 统计卡片 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <Link to="/session" className={sessions.length === 0 ? 'pointer-events-none' : ''}>
           <Card>
             <div className="text-center relative">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-red-900/20 to-red-800/20 border-2 border-red-900/40 mb-4 shadow-[0_0_20px_rgba(127,29,29,0.3)]">
-                <span className="text-3xl text-red-900">⬢</span>
+              <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-900/20 to-red-800/20 border-2 border-red-900/40 mb-3 sm:mb-4 shadow-[0_0_20px_rgba(127,29,29,0.3)]">
+                <span className="text-2xl sm:text-3xl text-red-900">⬢</span>
               </div>
-              <div className="text-5xl font-bold bg-gradient-to-r from-red-900 to-red-800 bg-clip-text text-transparent mb-2 tracking-tight">
+              <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-red-900 to-red-800 bg-clip-text text-transparent mb-2 tracking-tight">
                 {sessions.length}
               </div>
-              <div className="text-ww-slate-600 font-medium tracking-wide">跑团存档</div>
+              <div className="text-sm sm:text-base text-ww-slate-600 font-medium tracking-wide">跑团存档</div>
             </div>
           </Card>
         </Link>
@@ -70,13 +70,13 @@ export const DashboardPage: React.FC = () => {
         <Link to="/characters" className={characters.length === 0 ? 'pointer-events-none' : ''}>
           <Card>
             <div className="text-center relative">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-red-900/20 to-red-800/20 border-2 border-red-900/40 mb-4 shadow-[0_0_20px_rgba(127,29,29,0.3)]">
-                <span className="text-3xl text-red-900">◉</span>
+              <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-900/20 to-red-800/20 border-2 border-red-900/40 mb-3 sm:mb-4 shadow-[0_0_20px_rgba(127,29,29,0.3)]">
+                <span className="text-2xl sm:text-3xl text-red-900">◉</span>
               </div>
-              <div className="text-5xl font-bold bg-gradient-to-r from-red-900 to-red-800 bg-clip-text text-transparent mb-2 tracking-tight">
+              <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-red-900 to-red-800 bg-clip-text text-transparent mb-2 tracking-tight">
                 {characters.length}
               </div>
-              <div className="text-ww-slate-600 font-medium tracking-wide">角色档案</div>
+              <div className="text-sm sm:text-base text-ww-slate-600 font-medium tracking-wide">角色档案</div>
             </div>
           </Card>
         </Link>
@@ -84,13 +84,13 @@ export const DashboardPage: React.FC = () => {
         <Link to="/campaigns" className={campaigns.length === 0 ? 'pointer-events-none' : ''}>
           <Card>
             <div className="text-center relative">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-red-900/20 to-red-800/20 border-2 border-red-900/40 mb-4 shadow-[0_0_20px_rgba(127,29,29,0.3)]">
-                <span className="text-3xl text-red-900">▣</span>
+              <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-900/20 to-red-800/20 border-2 border-red-900/40 mb-3 sm:mb-4 shadow-[0_0_20px_rgba(127,29,29,0.3)]">
+                <span className="text-2xl sm:text-3xl text-red-900">▣</span>
               </div>
-              <div className="text-5xl font-bold bg-gradient-to-r from-red-900 to-red-800 bg-clip-text text-transparent mb-2 tracking-tight">
+              <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-red-900 to-red-800 bg-clip-text text-transparent mb-2 tracking-tight">
                 {campaigns.length}
               </div>
-              <div className="text-ww-slate-600 font-medium tracking-wide">团/模组</div>
+              <div className="text-sm sm:text-base text-ww-slate-600 font-medium tracking-wide">团/模组</div>
             </div>
           </Card>
         </Link>

@@ -66,16 +66,16 @@ export const SettingsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* 页面标题 */}
       <div className="relative">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-1.5 h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
+        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+          <div className="w-1 sm:w-1.5 h-6 sm:h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight mb-2">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight mb-1 sm:mb-2">
               系统设置
             </h1>
-            <p className="text-ww-slate-600 tracking-wide">数据管理与系统设置</p>
+            <p className="text-sm sm:text-base text-ww-slate-600 tracking-wide">数据管理与系统设置</p>
           </div>
         </div>
       </div>

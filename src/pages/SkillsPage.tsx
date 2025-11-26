@@ -75,15 +75,15 @@ export const SkillsPage: React.FC = () => {
       </div>
 
       {/* 页面头部 */}
-      <div className="mb-6">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-zinc-500/20 to-gray-600/20 
+      <div className="mb-4 sm:mb-6">
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-zinc-500/20 to-gray-600/20 
                         border border-zinc-500/40 flex items-center justify-center shadow-glow">
-            <span className="text-2xl">◐</span>
+            <span className="text-xl sm:text-2xl">◐</span>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-ww-slate-800">技能系统</h1>
-            <p className="text-sm text-ww-slate-600 mt-1">
+            <h1 className="text-2xl sm:text-3xl font-bold text-ww-slate-800">技能系统</h1>
+            <p className="text-xs sm:text-sm text-ww-slate-600 mt-1">
               共 {filteredSkills.length} 项技能
             </p>
           </div>
@@ -95,9 +95,9 @@ export const SkillsPage: React.FC = () => {
           placeholder="搜索技能名称或描述..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-5 py-3 pl-12 glass rounded-xl border border-ww-slate-300/50 
+          className="w-full px-4 sm:px-5 py-2.5 sm:py-3 pl-10 sm:pl-12 glass rounded-xl border border-ww-slate-300/50 
                    focus:outline-none focus:border-ww-orange-500/50 focus:shadow-glow-sm
-                   text-ww-slate-800 placeholder-ww-slate-400 transition-all duration-300 mb-4"
+                   text-sm sm:text-base text-ww-slate-800 placeholder-ww-slate-400 transition-all duration-300 mb-4"
         />
 
         {/* 分类筛选 */}
@@ -128,14 +128,14 @@ export const SkillsPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* 技能列表 */}
         <div className="lg:col-span-1 space-y-2 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
           {filteredSkills.map(skill => (
             <button
               key={skill.id}
               onClick={() => setSelectedSkill(skill.id)}
-              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ${
+              className={`w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg transition-all duration-300 ${
                 selectedSkill === skill.id
                   ? 'glass-strong border border-ww-orange-500/40 shadow-glow-sm'
                   : 'glass border border-ww-slate-300/50 hover:border-ww-orange-500/30'
@@ -143,10 +143,10 @@ export const SkillsPage: React.FC = () => {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-bold text-ww-slate-800">{skill.name}</div>
+                  <div className="text-sm sm:text-base font-bold text-ww-slate-800">{skill.name}</div>
                   <div className="text-xs text-ww-slate-500 mt-0.5">{skill.nameEn}</div>
                 </div>
-                <div className="text-sm font-mono text-ww-orange-600 bg-ww-orange-500/10 px-2 py-1 rounded">
+                <div className="text-xs sm:text-sm font-mono text-ww-orange-600 bg-ww-orange-500/10 px-2 py-1 rounded">
                   {skill.base}%
                 </div>
               </div>

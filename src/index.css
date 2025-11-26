@@ -245,3 +245,42 @@ body {
 .animation-delay-400 {
   animation-delay: 0.4s;
 }
+
+/* 移动端优化 */
+@media (max-width: 1024px) {
+  /* 减少扫描线效果在移动端的干扰 */
+  .scanlines::before {
+    opacity: 0.015;
+  }
+  
+  /* 移动端菜单平滑过渡 */
+  aside {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* 触摸优化 */
+@media (hover: none) and (pointer: coarse) {
+  /* 移除移动端的 hover 效果 */
+  .hover\:shadow-glow:hover {
+    box-shadow: inherit;
+  }
+  
+  /* 增加触摸目标大小 */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* 防止移动端点击延迟 */
+body {
+  touch-action: manipulation;
+}
+
+/* 移动端滚动优化 */
+@supports (-webkit-overflow-scrolling: touch) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}

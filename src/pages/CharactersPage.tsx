@@ -48,16 +48,16 @@ export const CharactersPage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* 页面标题 */}
       <div className="relative">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-1.5 h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
+        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+          <div className="w-1 sm:w-1.5 h-6 sm:h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
             调查员档案
           </h1>
         </div>
-        <p className="text-ww-slate-600 ml-5 tracking-wide">
+        <p className="text-sm sm:text-base text-ww-slate-600 ml-3 sm:ml-5 tracking-wide">
           管理所有调查员角色与 NPC
         </p>
       </div>
@@ -71,9 +71,9 @@ export const CharactersPage: React.FC = () => {
 
       {/* 角色列表 */}
       {characters.length === 0 ? (
-        <Card className="text-center py-16">
-          <div className="text-ww-slate-400 mb-4 text-lg">尚无调查员档案</div>
-          <p className="text-ww-slate-500 text-sm mb-6">
+        <Card className="text-center py-12 sm:py-16">
+          <div className="text-ww-slate-400 mb-4 text-base sm:text-lg">尚无调查员档案</div>
+          <p className="text-ww-slate-500 text-sm mb-6 px-4">
             点击上方按钮创建示例角色，或手动添加新角色
           </p>
           <Button variant="primary" onClick={handleCreateSample} className="mx-auto">
@@ -81,7 +81,7 @@ export const CharactersPage: React.FC = () => {
           </Button>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
           {characters.map((char) => (
             <Card
               key={char.id}

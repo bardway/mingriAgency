@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
@@ -25,19 +25,73 @@ interface AppLayoutProps {
 /**
  * Westworld 风格应用主布局
  * 银灰科幻、玻璃态、立体感设计
+ * 响应式设计，支持移动端
  */
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="flex h-screen bg-ww-light-200 text-ww-slate-700 scanlines">
+      {/* 移动端顶部导航栏 */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 glass-strong border-b border-ww-slate-300/50 shadow-xl">
+        <div className="flex items-center justify-between p-4">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-ww-orange-500/15 to-ww-amber-500/15 border border-ww-orange-500/30 flex items-center justify-center shadow-glow">
+              <span className="text-xl text-red-900">◉</span>
+            </div>
+            <h1 className="text-lg font-bold bg-gradient-to-r from-ww-orange-500 to-ww-amber-500 bg-clip-text text-transparent tracking-wide">
+              明日调查局
+            </h1>
+          </div>
+          
+          {/* 汉堡菜单按钮 */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 rounded-lg hover:bg-ww-slate-200/50 transition-colors"
+            aria-label="菜单"
+          >
+            <svg
+              className="w-6 h-6 text-ww-slate-700"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              {isMobileMenuOpen ? (
+                <path d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* 遮罩层 - 移动端菜单打开时 */}
+      {isMobileMenuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/30 z-40 backdrop-blur-sm"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* 侧边栏 - 玻璃态效果 */}
-      <aside className="w-72 glass-strong border-r border-ww-slate-300/50 flex flex-col shadow-xl relative">
+      <aside className={clsx(
+        'w-72 glass-strong border-r border-ww-slate-300/50 flex flex-col shadow-xl z-50 transition-transform duration-300',
+        // 移动端: fixed 定位，通过 transform 控制显隐
+        // 桌面端: relative 定位，始终显示
+        'fixed inset-y-0 left-0 lg:relative lg:translate-x-0',
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      )}>
         {/* 顶部发光线 */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ww-orange-500/40 to-transparent"></div>
         
         {/* Logo */}
-        <div className="p-6 border-b border-ww-slate-300/50 relative">
+        <div className="p-6 border-b border-ww-slate-300/50 relative hidden lg:block">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-ww-orange-500/15 to-ww-amber-500/15 border border-ww-orange-500/30 flex items-center justify-center shadow-glow">
               <span className="text-2xl text-red-900">◉</span>
@@ -51,13 +105,14 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </div>
 
         {/* 导航菜单 */}
-        <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto">
+        <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto pt-16 lg:pt-4">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <Link
                 key={item.path}
                 to={item.path}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={clsx(
                   'group flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 relative overflow-hidden',
                   isActive
@@ -94,6 +149,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <div className="px-4 pb-4">
           <Link
             to="/rulebook"
+            onClick={() => setIsMobileMenuOpen(false)}
             className={clsx(
               'group block relative overflow-hidden rounded-xl transition-all duration-300',
               location.pathname.startsWith('/rulebook')
@@ -182,12 +238,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       </aside>
 
       {/* 主内容区 - 背景网格 */}
-      <main className="flex-1 overflow-auto relative">
+      <main className="flex-1 w-full overflow-auto relative pt-16 lg:pt-0">
         {/* 背景网格效果 */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(107,114,128,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(107,114,128,0.05)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none"></div>
         
         {/* 内容容器 */}
-        <div className="relative z-10 container mx-auto p-8 max-w-7xl">
+        <div className="relative z-10 container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
           {children}
         </div>
       </main>
