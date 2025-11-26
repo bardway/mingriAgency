@@ -11,6 +11,7 @@ import { RulebookIndexPage } from '@/pages/RulebookIndexPage';
 import { RulebookSearchPage } from '@/pages/RulebookSearchPage';
 import { RulesPage } from '@/pages/RulesPage';
 import { SkillsPage } from '@/pages/SkillsPage';
+import { SkillsFullPage } from '@/pages/SkillsFullPage';
 import { AttributesPage } from '@/pages/AttributesPage';
 import { OccupationsPage } from '@/pages/OccupationsPage';
 import { CombatPage } from '@/pages/CombatPage';
@@ -39,6 +40,7 @@ export const AppRouter: React.FC = () => {
           <Route path="/rulebook/search" element={<RulebookSearchPage />} />
           <Route path="/rulebook/rules" element={<RulesPage />} />
           <Route path="/rulebook/skills" element={<SkillsPage />} />
+          <Route path="/rulebook/skills-full" element={<SkillsFullPage />} />
           <Route path="/rulebook/attributes" element={<AttributesPage />} />
           <Route path="/rulebook/occupations" element={<OccupationsPage />} />
           <Route path="/rulebook/combat" element={<CombatPage />} />

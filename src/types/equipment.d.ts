@@ -72,7 +72,20 @@ export interface SkillExtended {
 }
 
 /**
- * 职业扩展数据类型定义
+ * 职业扩展数据类型定义（来自 CSV）
+ */
+export interface OccupationFull {
+  id: string;
+  name: string;
+  creditRating: string;
+  occupationalAttributes: string;
+  occupationalSkills: string;
+  contacts: string;
+  description: string;
+}
+
+/**
+ * 职业基础数据类型定义（原有数据）
  */
 export interface OccupationExtended {
   id: string;
@@ -93,6 +106,33 @@ export interface InsanityManifestation {
   number: string;
   symptom: string;
   description: string;
+}
+
+/**
+ * 技能完整数据类型定义（来自 CSV）
+ */
+export interface SkillFull {
+  id: string;
+  name: string;
+  base: string;
+  specialization: string;
+  difficultyNote: string;
+  description: string;
+  regularDifficulty: string;
+  hardDifficulty: string;
+  pushExample: string;
+  pushFailure: string;
+  insanePushFailure: string;
+}
+
+/**
+ * 疯狂症状数据类型定义（来自 CSV）
+ */
+export interface InsanitySymptom {
+  id: string;
+  name: string;
+  description: string;
+  type: '即时症状' | '持续性症状';
 }
 
 /**

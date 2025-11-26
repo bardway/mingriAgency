@@ -36,6 +36,14 @@ const categories: RuleCategory[] = [
     color: 'from-zinc-500/15 to-gray-600/15 border-zinc-500/30'
   },
   {
+    id: 'skills-full',
+    title: '技能详查',
+    icon: '📖',
+    description: '110项完整技能数据',
+    path: '/rulebook/skills-full',
+    color: 'from-blue-500/15 to-indigo-500/15 border-blue-500/30'
+  },
+  {
     id: 'equipment',
     title: '装备系统',
     icon: '⚔️',
