@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from '@/components/Card';
 import type { Weapon, Armor, Vehicle } from '@/types/equipment';
 
@@ -221,6 +222,15 @@ export const EquipmentPage: React.FC = () => {
         </div>
       ) : (
         <>
+          {/* 面包屑导航 */}
+          <div className="flex items-center gap-2 text-sm text-ww-slate-600 mb-6">
+            <Link to="/rulebook" className="hover:text-ww-orange-500 transition-colors">
+              📚 规则库
+            </Link>
+            <span>→</span>
+            <span className="text-ww-slate-800 font-medium">⚔️ 装备速查</span>
+          </div>
+
           {/* 页面标题 */}
           <div className="relative">
         <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
@@ -310,8 +320,36 @@ export const EquipmentPage: React.FC = () => {
 
       {/* 数据展示 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-        {/* 列表 */}
-        <div className="lg:col-span-1 space-y-2 max-h-[calc(100vh-400px)] overflow-y-auto pr-2">
+        {/* 移动端：下拉列表选择器 */}
+        <div className="lg:hidden">
+          <label className="block text-sm font-medium text-ww-slate-700 mb-2">
+            选择{activeTab === 'weapons' ? '武器' : activeTab === 'armor' ? '护甲' : '载具'}
+          </label>
+          <select
+            value={selectedItem || ''}
+            onChange={(e) => setSelectedItem(e.target.value)}
+            className="w-full px-3 py-2.5 glass border border-ww-slate-300/50 rounded-lg text-ww-slate-800 focus:outline-none focus:border-ww-orange-500/50 focus:ring-2 focus:ring-ww-orange-500/20 transition-all"
+          >
+            {filteredData.length === 0 ? (
+              <option value="">未找到匹配的数据</option>
+            ) : (
+              <>
+                <option value="">请选择一个{activeTab === 'weapons' ? '武器' : activeTab === 'armor' ? '护甲' : '载具'}</option>
+                {filteredData.map((item: EquipmentItem) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                    {'category' in item && item.category ? ` (${item.category})` : ''}
+                    {activeTab === 'weapons' && 'damage' in item && item.damage ? ` - ${item.damage}` : ''}
+                    {activeTab === 'armor' && 'armorValue' in item ? ` - 护甲${item.armorValue}` : ''}
+                  </option>
+                ))}
+              </>
+            )}
+          </select>
+        </div>
+
+        {/* 桌面端：列表 */}
+        <div className="hidden lg:block lg:col-span-1 space-y-2 max-h-[calc(100vh-400px)] overflow-y-auto pr-2">
           {filteredData.length === 0 ? (
             <Card className="text-center py-8">
               <div className="text-ww-slate-400">未找到匹配的数据</div>

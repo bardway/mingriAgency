@@ -14,14 +14,14 @@ const quickActions: QuickAction[] = [
   {
     path: '/kp/session',
     label: 'KP 中控台',
-    description: '开始跑团会话，管理场景和投骰',
+    description: '跑团会话、场景管理',
     icon: '⬢',
     color: 'ww-orange'
   },
   {
     path: '/kp/characters',
     label: '角色库',
-    description: '管理玩家角色卡和NPC',
+    description: '角色卡和NPC管理',
     icon: '◉',
     color: 'blue'
   }
@@ -36,7 +36,7 @@ export const KPDashboardPage: React.FC = () => {
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-ww-slate-800 mb-2">KP 中控台</h1>
         <p className="text-ww-slate-600">
-          跑团会话管理工具，帮助你更好地引导玩家探索克苏鲁的世界
+          跑团会话管理，引导玩家探索克苏鲁世界
         </p>
       </div>
 
@@ -78,30 +78,21 @@ export const KPDashboardPage: React.FC = () => {
         ))}
       </div>
 
-      {/* 功能介绍 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="p-6 rounded-xl frosted-glass border border-ww-slate-300/50">
-          <div className="text-3xl mb-3">📊</div>
-          <h4 className="text-lg font-bold text-ww-slate-800 mb-2">实时数据追踪</h4>
-          <p className="text-ww-slate-600 text-sm">
-            追踪玩家角色状态、理智值、生命值等关键数据
-          </p>
-        </div>
-        
-        <div className="p-6 rounded-xl frosted-glass border border-ww-slate-300/50">
-          <div className="text-3xl mb-3">🎲</div>
-          <h4 className="text-lg font-bold text-ww-slate-800 mb-2">投骰管理</h4>
-          <p className="text-ww-slate-600 text-sm">
-            支持各种COC规则投骰，自动计算成功等级
-          </p>
-        </div>
-
-        <div className="p-6 rounded-xl frosted-glass border border-ww-slate-300/50">
-          <div className="text-3xl mb-3">📝</div>
-          <h4 className="text-lg font-bold text-ww-slate-800 mb-2">会话记录</h4>
-          <p className="text-ww-slate-600 text-sm">
-            自动保存跑团记录，方便回顾和整理
-          </p>
+      {/* 功能说明 */}
+      <div className="mt-6 p-4 rounded-lg bg-ww-slate-100/50 border border-ww-slate-200/50">
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-ww-slate-600">
+          <div className="flex items-center gap-2">
+            <span className="opacity-50">📊</span>
+            <span>实时数据追踪</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="opacity-50">🎲</span>
+            <span>投骰管理</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="opacity-50">📝</span>
+            <span>会话记录</span>
+          </div>
         </div>
       </div>
     </div>

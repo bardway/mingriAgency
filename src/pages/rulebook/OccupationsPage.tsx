@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card } from '@/components/Card';
 
 interface Occupation {
@@ -12,22 +12,53 @@ interface Occupation {
   skillPointsRule: string;
 }
 
+interface Skill {
+  id: string;
+  name: string;
+  category: string;
+  era: string;
+  baseChance: string;
+  description: string;
+  examples?: string[];
+  specializations?: string[];
+  unusual?: boolean;
+  doubleBaseChance?: boolean;
+}
+
 export const OccupationsPage: React.FC = () => {
+  const navigate = useNavigate();
   const [occupations, setOccupations] = useState<Occupation[]>([]);
+  const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedOccupation, setSelectedOccupation] = useState<Occupation | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [eraFilter, setEraFilter] = useState<'all' | '1920' | 'modern'>('all');
 
+  // 技能ID到中文名的映射
+  const getSkillName = (skillId: string): string => {
+    const skill = skills.find(s => s.id === skillId);
+    return skill ? skill.name : skillId;
+  };
+
+  // 跳转到技能页面
+  const handleSkillClick = (skillId: string) => {
+    navigate(`/rulebook/skills?highlight=${encodeURIComponent(skillId)}`);
+  };
+
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch('/data/occupations.json');
-        const data = await response.json();
-        setOccupations(data);
+        const [occupationsRes, skillsRes] = await Promise.all([
+          fetch('/data/occupations.json'),
+          fetch('/data/skills.json')
+        ]);
+        const occupationsData = await occupationsRes.json();
+        const skillsData = await skillsRes.json();
+        setOccupations(occupationsData);
+        setSkills(skillsData);
         setLoading(false);
       } catch (error) {
-        console.error('加载职业数据失败:', error);
+        console.error('加载数据失败:', error);
         setLoading(false);
       }
     };
@@ -61,7 +92,7 @@ export const OccupationsPage: React.FC = () => {
       </div>
 
       {/* 标题区域 */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-500/20 to-slate-500/20 border border-gray-500/40 flex items-center justify-center edge-glow">
             <span className="text-2xl">👔</span>
@@ -72,9 +103,9 @@ export const OccupationsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex gap-3">
-          {/* 年代筛选 */}
-          <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-3">
+          {/* 年代筛选 - 桌面端按钮 */}
+          <div className="hidden lg:flex gap-2">
             <button
               onClick={() => setEraFilter('all')}
               className={`px-4 py-2 rounded-lg text-sm transition-all ${
@@ -96,6 +127,10 @@ export const OccupationsPage: React.FC = () => {
               1920年代
             </button>
             <button
+            >
+              1920年代
+            </button>
+            <button
               onClick={() => setEraFilter('modern')}
               className={`px-4 py-2 rounded-lg text-sm transition-all ${
                 eraFilter === 'modern'
@@ -107,8 +142,25 @@ export const OccupationsPage: React.FC = () => {
             </button>
           </div>
 
+          {/* 年代筛选 - 移动端下拉列表 */}
+          <div className="lg:hidden w-full sm:w-auto">
+            <select
+              value={eraFilter}
+              onChange={(e) => setEraFilter(e.target.value as 'all' | '1920' | 'modern')}
+              className="w-full px-4 py-2.5 rounded-lg glass border border-ww-slate-300/50 
+                       focus:outline-none focus:border-ww-orange-500/50 focus:shadow-glow-sm
+                       text-sm text-ww-slate-800 transition-all duration-300 appearance-none
+                       bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M7%208.5l3%203%203-3%22%20stroke%3D%22%23475569%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E')] 
+                       bg-no-repeat bg-[center_right_1rem]"
+            >
+              <option value="all">全部年代</option>
+              <option value="1920">1920年代</option>
+              <option value="modern">现代</option>
+            </select>
+          </div>
+
           {/* 搜索框 */}
-          <div className="w-64">
+          <div className="w-full sm:w-64">
             <input
               type="text"
               value={searchTerm}
@@ -122,8 +174,8 @@ export const OccupationsPage: React.FC = () => {
 
       {/* 主要内容区域 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* 职业列表 */}
-        <div className="space-y-2 h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-ww-slate-300 scrollbar-track-transparent">
+        {/* 职业列表 - 桌面端列表 */}
+        <div className="hidden lg:block space-y-2 h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-ww-slate-300 scrollbar-track-transparent">
           {filteredOccupations.map((occ) => (
             <button
               key={occ.id}
@@ -142,8 +194,31 @@ export const OccupationsPage: React.FC = () => {
           ))}
         </div>
 
+        {/* 职业列表 - 移动端下拉列表 */}
+        <div className="lg:hidden mb-4">
+          <select
+            value={selectedOccupation?.id || ''}
+            onChange={(e) => {
+              const occ = filteredOccupations.find(o => o.id === e.target.value);
+              setSelectedOccupation(occ || null);
+            }}
+            className="w-full px-4 py-3 rounded-lg glass border border-ww-slate-300/50 
+                     focus:outline-none focus:border-ww-orange-500/50 focus:shadow-glow-sm
+                     text-sm text-ww-slate-800 transition-all duration-300 appearance-none
+                     bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M7%208.5l3%203%203-3%22%20stroke%3D%22%23475569%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E')] 
+                     bg-no-repeat bg-[center_right_1rem]"
+          >
+            <option value="">选择职业...</option>
+            {filteredOccupations.map((occ) => (
+              <option key={occ.id} value={occ.id}>
+                {occ.name} (信誉: {occ.creditRatingRange[0]}-{occ.creditRatingRange[1]})
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* 详情面板 */}
-        <div className="lg:col-span-2 h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-ww-slate-300 scrollbar-track-transparent">
+        <div className="lg:col-span-2 max-h-[600px] lg:h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-ww-slate-300 scrollbar-track-transparent">
           {selectedOccupation ? (
             <Card className="p-6 space-y-6">
               {/* 职业标题 */}
@@ -180,12 +255,14 @@ export const OccupationsPage: React.FC = () => {
                 </h3>
                 <div className="flex flex-wrap gap-2 mt-3">
                   {selectedOccupation.skillIds.map((skillId) => (
-                    <span 
+                    <button
                       key={skillId}
-                      className="px-3 py-1 rounded-lg glass border border-ww-slate-300/50 text-sm text-ww-slate-700"
+                      onClick={() => handleSkillClick(skillId)}
+                      className="px-3 py-1 rounded-lg glass border border-ww-slate-300/50 text-sm text-ww-slate-700 hover:border-ww-orange-500/50 hover:text-ww-orange-600 hover:shadow-sm transition-all cursor-pointer"
+                      title="点击查看技能详情"
                     >
-                      {skillId}
-                    </span>
+                      {getSkillName(skillId)}
+                    </button>
                   ))}
                 </div>
               </div>

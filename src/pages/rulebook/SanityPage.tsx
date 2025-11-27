@@ -62,7 +62,8 @@ export const SanityPage: React.FC = () => {
       </div>
 
       {/* 分类筛选 */}
-      <div className="flex gap-2">
+      {/* 桌面端：按钮筛选 */}
+      <div className="hidden lg:flex gap-2">
         <button
           onClick={() => setTypeFilter('all')}
           className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
@@ -95,10 +96,44 @@ export const SanityPage: React.FC = () => {
         </button>
       </div>
 
+      {/* 移动端：下拉筛选 */}
+      <div className="lg:hidden">
+        <label className="block text-sm font-medium text-ww-slate-700 mb-2">症状类型</label>
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+          className="w-full px-3 py-2.5 glass border border-ww-slate-300/50 rounded-lg text-ww-slate-800 focus:outline-none focus:border-ww-orange-500/50 focus:ring-2 focus:ring-ww-orange-500/20 transition-all"
+        >
+          <option value="all">全部 ({symptoms.length})</option>
+          <option value="即时症状">⚡ 即时症状 ({immediateCount})</option>
+          <option value="持续性症状">⏳ 持续性症状 ({prolongedCount})</option>
+        </select>
+      </div>
+
       {/* 主要内容区域 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* 症状列表 */}
-        <div className="space-y-2 h-[calc(100vh-240px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-ww-slate-300 scrollbar-track-transparent">
+        {/* 移动端：下拉列表选择器 */}
+        <div className="lg:hidden">
+          <label className="block text-sm font-medium text-ww-slate-700 mb-2">选择症状</label>
+          <select
+            value={selectedSymptom?.id || ''}
+            onChange={(e) => {
+              const symptom = filteredSymptoms.find(s => s.id === e.target.value);
+              setSelectedSymptom(symptom || null);
+            }}
+            className="w-full px-3 py-2.5 glass border border-ww-slate-300/50 rounded-lg text-ww-slate-800 focus:outline-none focus:border-ww-orange-500/50 focus:ring-2 focus:ring-ww-orange-500/20 transition-all"
+          >
+            <option value="">请选择一个症状</option>
+            {filteredSymptoms.map((symptom) => (
+              <option key={symptom.id} value={symptom.id}>
+                {symptom.type === '即时症状' ? '⚡' : '⏳'} {symptom.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* 桌面端：症状列表 */}
+        <div className="hidden lg:block space-y-2 max-h-[calc(100vh-400px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-ww-slate-300 scrollbar-track-transparent">
           {filteredSymptoms.map((symptom) => (
             <button
               key={symptom.id}
@@ -124,7 +159,7 @@ export const SanityPage: React.FC = () => {
         </div>
 
         {/* 详情面板 */}
-        <div className="lg:col-span-2 h-[calc(100vh-240px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-ww-slate-300 scrollbar-track-transparent">
+        <div className="lg:col-span-2 max-h-[600px] lg:h-[calc(100vh-240px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-ww-slate-300 scrollbar-track-transparent">
           {selectedSymptom ? (
             <Card className="p-6 space-y-6">
               {/* 症状标题 */}

@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useCoc7Data } from '@/hooks/useCoc7Data';
 
 /**
@@ -7,9 +7,32 @@ import { useCoc7Data } from '@/hooks/useCoc7Data';
  */
 export const SkillsPage: React.FC = () => {
   const { data, loading, error } = useCoc7Data();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+
+  // 处理URL参数中的高亮技能
+  useEffect(() => {
+    const highlightSkillId = searchParams.get('highlight');
+    if (highlightSkillId && data) {
+      const skill = data.skills.find(s => s.id === highlightSkillId);
+      if (skill) {
+        setSelectedSkill(highlightSkillId);
+        // 清除URL参数
+        setTimeout(() => {
+          setSearchParams({});
+        }, 100);
+        // 滚动到选中的技能
+        setTimeout(() => {
+          const element = document.getElementById(`skill-${highlightSkillId}`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 200);
+      }
+    }
+  }, [searchParams, data, setSearchParams]);
 
   const filteredSkills = useMemo(() => {
     if (!data) return [];
@@ -56,10 +79,13 @@ export const SkillsPage: React.FC = () => {
     );
   }
 
-  const categories = data.skillCategories.map(cat => ({
-    ...cat,
-    count: data.skills.filter(s => s.category === cat.id).length
-  }));
+  // 过滤掉计数为0的分类
+  const categories = data.skillCategories
+    .map(cat => ({
+      ...cat,
+      count: data.skills.filter(s => s.category === cat.id).length
+    }))
+    .filter(cat => cat.count > 0);
 
   const selectedSkillData = selectedSkill 
     ? data.skills.find(s => s.id === selectedSkill)
@@ -100,8 +126,8 @@ export const SkillsPage: React.FC = () => {
                    text-sm sm:text-base text-ww-slate-800 placeholder-ww-slate-400 transition-all duration-300 mb-4"
         />
 
-        {/* 分类筛选 */}
-        <div className="flex flex-wrap gap-2">
+        {/* 分类筛选 - 桌面端按钮 */}
+        <div className="hidden lg:flex flex-wrap gap-2">
           <button
             onClick={() => setCategoryFilter('all')}
             className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${
@@ -126,14 +152,35 @@ export const SkillsPage: React.FC = () => {
             </button>
           ))}
         </div>
+
+        {/* 分类筛选 - 移动端下拉列表 */}
+        <div className="lg:hidden">
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-lg glass border border-ww-slate-300/50 
+                     focus:outline-none focus:border-ww-orange-500/50 focus:shadow-glow-sm
+                     text-sm text-ww-slate-800 transition-all duration-300 appearance-none
+                     bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M7%208.5l3%203%203-3%22%20stroke%3D%22%23475569%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E')] 
+                     bg-no-repeat bg-[center_right_1rem]"
+          >
+            <option value="all">全部技能 ({data.skills.length})</option>
+            {categories.map(cat => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name} ({cat.count})
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-        {/* 技能列表 */}
-        <div className="lg:col-span-1 space-y-2 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
+        {/* 技能列表 - 桌面端列表 */}
+        <div className="hidden lg:block lg:col-span-1 space-y-2 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
           {filteredSkills.map(skill => (
             <button
               key={skill.id}
+              id={`skill-${skill.id}`}
               onClick={() => setSelectedSkill(skill.id)}
               className={`w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg transition-all duration-300 ${
                 selectedSkill === skill.id
@@ -159,6 +206,26 @@ export const SkillsPage: React.FC = () => {
               <p className="text-ww-slate-500 text-sm">未找到匹配的技能</p>
             </div>
           )}
+        </div>
+
+        {/* 技能列表 - 移动端下拉列表 */}
+        <div className="lg:hidden mb-4">
+          <select
+            value={selectedSkill || ''}
+            onChange={(e) => setSelectedSkill(e.target.value || null)}
+            className="w-full px-4 py-3 rounded-lg glass border border-ww-slate-300/50 
+                     focus:outline-none focus:border-ww-orange-500/50 focus:shadow-glow-sm
+                     text-sm text-ww-slate-800 transition-all duration-300 appearance-none
+                     bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M7%208.5l3%203%203-3%22%20stroke%3D%22%23475569%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E')] 
+                     bg-no-repeat bg-[center_right_1rem]"
+          >
+            <option value="">选择技能...</option>
+            {filteredSkills.map(skill => (
+              <option key={skill.id} value={skill.id}>
+                {skill.name} ({skill.nameEn}) - {skill.base}%
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* 技能详情 */}

@@ -15,7 +15,7 @@ const categories: RuleCategory[] = [
     id: 'rules',
     title: '核心规则',
     icon: '📋',
-    description: '检定、对抗、成长等基础规则',
+    description: '检定、对抗、成长',
     path: '/rulebook/rules',
     color: 'from-slate-500/15 to-gray-500/15 border-slate-500/30'
   },
@@ -23,7 +23,7 @@ const categories: RuleCategory[] = [
     id: 'attributes',
     title: '角色属性',
     icon: '⭐',
-    description: 'STR、CON等基础与派生属性',
+    description: '基础与派生属性',
     path: '/rulebook/attributes',
     color: 'from-stone-500/15 to-neutral-500/15 border-stone-500/30'
   },
@@ -31,7 +31,7 @@ const categories: RuleCategory[] = [
     id: 'skills',
     title: '技能详查',
     icon: '🎯',
-    description: '62项技能详细说明（含年代分类）',
+    description: '62项技能（含年代）',
     path: '/rulebook/skills',
     color: 'from-blue-500/15 to-indigo-500/15 border-blue-500/30'
   },
@@ -39,7 +39,7 @@ const categories: RuleCategory[] = [
     id: 'occupations',
     title: '职业速查',
     icon: '💼',
-    description: '186个职业的技能配置（1920/现代）',
+    description: '186个职业配置',
     path: '/rulebook/occupations',
     color: 'from-gray-500/15 to-slate-500/15 border-gray-500/30'
   },
@@ -47,7 +47,7 @@ const categories: RuleCategory[] = [
     id: 'equipment',
     title: '装备速查',
     icon: '⚔️',
-    description: '武器、防具、载具资料库',
+    description: '武器、防具、载具',
     path: '/rulebook/equipment',
     color: 'from-amber-500/15 to-orange-500/15 border-amber-500/30'
   },
@@ -55,7 +55,7 @@ const categories: RuleCategory[] = [
     id: 'combat',
     title: '战斗规则',
     icon: '⚡',
-    description: '战斗回合、伤害计算',
+    description: '回合、伤害计算',
     path: '/rulebook/combat',
     color: 'from-slate-600/15 to-gray-700/15 border-slate-600/30'
   },
@@ -63,7 +63,7 @@ const categories: RuleCategory[] = [
     id: 'sanity',
     title: '理智系统',
     icon: '🧠',
-    description: '理智检定、疯狂症状',
+    description: '检定、疯狂症状',
     path: '/rulebook/sanity',
     color: 'from-neutral-600/15 to-stone-600/15 border-neutral-600/30'
   }
@@ -169,19 +169,12 @@ export const RulebookIndexPage: React.FC = () => {
         ))}
       </div>
 
-      {/* 底部提示 */}
-      <div className="mt-12 glass rounded-xl p-6 border border-ww-slate-300/50">
-        <div className="flex items-start gap-4">
-          <span className="text-3xl">💡</span>
-          <div>
-            <h4 className="font-bold text-ww-slate-800 mb-2">快速提示</h4>
-            <ul className="text-sm text-ww-slate-600 space-y-1">
-              <li>• 点击任意分类卡片进入详细规则查询</li>
-              <li>• 使用搜索功能快速定位所需规则</li>
-              <li>• 数据来源: COC7守秘人规则书 & 调查员手册</li>
-            </ul>
-          </div>
-        </div>
+      {/* 底部说明 */}
+      <div className="mt-10 p-4 rounded-lg bg-ww-slate-100/50 border border-ww-slate-200/50">
+        <p className="text-ww-slate-500 text-xs leading-relaxed">
+          <span className="font-semibold text-ww-slate-700">💡 提示：</span>
+          使用搜索快速定位规则 · 数据来源 COC7 守秘人规则书
+        </p>
       </div>
     </div>
   );
