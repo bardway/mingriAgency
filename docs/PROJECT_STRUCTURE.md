@@ -1,5 +1,25 @@
 # 项目结构说明
 
+## 系统架构
+
+本系统采用**三大模块**设计，每个模块独立运行且功能完整：
+
+### 1. **KP 中控台** (`/kp`)
+跑团会话管理工具，用于实时跑团
+- 会话中控台 - 场景管理、投骰、数据追踪
+- 角色库 - 玩家角色卡创建和导入
+
+### 2. **模组创建** (`/designer`)
+可视化模组设计平台
+- 模组设计器 - 剧情流程图、场景编辑
+- NPC管理 - NPC信息和关系网络
+- 线索管理 - 线索分布和触发条件
+
+### 3. **规则库** (`/rulebook`)
+COC7版规则查询系统
+- 规则索引、技能、属性、职业
+- 战斗、理智、装备数据
+
 ## 目录组织
 
 ### `/src` - 源代码目录
@@ -7,19 +27,54 @@
 #### `/src/components` - UI 组件
 可复用的 React 组件，遵循单一职责原则。
 
-- `AppLayout.tsx` - 应用主布局（导航栏、侧边栏）
+- `AppLayout.tsx` - (已废弃) 旧版统一布局
+- `ModuleLayout.tsx` - 模块布局组件（三大模块通用）
 - `Button.tsx` - 按钮组件
 - `Card.tsx` - 卡片组件
+- `Toast.tsx` - 消息提示组件
 
 #### `/src/pages` - 页面组件
-每个页面对应一个路由，负责页面级的状态管理和业务逻辑。
+按模块组织的页面文件：
 
-- `DashboardPage.tsx` - 概览仪表盘
-- `CharactersPage.tsx` - 角色管理
-- `CampaignsPage.tsx` - 战役管理
-- `ScenesPage.tsx` - 场景管理
-- `SessionConsolePage.tsx` - KP 中控台
-- `SettingsPage.tsx` - 设置页面
+**主入口**
+- `HomePage.tsx` - 模块选择入口页
+
+**KP中控台 (`/pages/kp/`)**
+- `KPDashboardPage.tsx` - KP中控台概览
+- `SessionConsolePage.tsx` - 会话中控台
+- `CharactersPage.tsx` - 角色库
+
+**模组创建 (`/pages/designer/`)**
+- `DesignerDashboardPage.tsx` - 模组创建概览
+- `ModuleDesignerPage.tsx` - 模组设计器
+
+**规则库 (`/pages/rulebook/`)**
+- `RulebookIndexPage.tsx` - 规则索引
+- `RulebookSearchPage.tsx` - 规则搜索
+- `RulesPage.tsx` - 核心规则
+- `SkillsPage.tsx` - 技能列表
+- `AttributesPage.tsx` - 属性说明
+- `OccupationsPage.tsx` - 职业数据
+- `CombatPage.tsx` - 战斗规则
+- `SanityPage.tsx` - 理智系统
+- `EquipmentPage.tsx` - 装备列表
+
+#### `/src/features` - 功能模块
+复杂功能的组件和逻辑封装
+
+**模组设计器 (`/features/module-designer/`)**
+- `/components/` - 设计器组件
+  - `StoryFlowCanvas.tsx` - 故事流程画布
+  - `NodeEditorPanel.tsx` - 节点编辑面板
+  - `NPCManager.tsx` - NPC管理器
+- `/nodes/` - 流程节点类型
+  - `SceneNode.tsx` - 场景节点
+  - `ChoiceNode.tsx` - 选择节点
+  - `ConditionNode.tsx` - 条件节点
+  - `CombatNode.tsx` - 战斗节点
+  - `EndingNode.tsx` - 结局节点
+- `/store/` - 设计器状态管理
+  - `moduleDesignerStore.ts` - Zustand store
 
 #### `/src/domain` - 领域模型
 业务实体的 TypeScript 定义，包含数据结构和业务逻辑。
@@ -71,9 +126,13 @@
 - `index.ts` - 统一导出
 
 #### `/src/router` - 路由配置
-React Router 路由配置。
+React Router 路由配置，采用**模块化嵌套路由**。
 
 - `AppRouter.tsx` - 路由定义和配置
+  - `/` - 主入口（模块选择）
+  - `/kp/*` - KP中控台模块路由
+  - `/designer/*` - 模组创建模块路由
+  - `/rulebook/*` - 规则库模块路由
 
 ### `/public` - 静态资源
 
@@ -118,7 +177,14 @@ PDF 等参考文档，供开发时查阅。
 
 ## 架构设计原则
 
-### 1. 分层架构
+### 1. 模块化设计
+系统分为三个独立模块，每个模块有独立的：
+- 入口页面（Dashboard）
+- 导航菜单
+- 路由命名空间
+- 视觉主题色
+
+### 2. 分层架构
 ```
 UI Layer (Components/Pages)
     ↓
@@ -129,19 +195,45 @@ Business Layer (Domain Models)
 Data Layer (Storage)
 ```
 
-### 2. 单一职责
+### 3. 单一职责
 - 每个文件只负责一个功能模块
 - 组件保持轻量，复杂逻辑提取到 Hooks
 - 工具函数保持纯净，无副作用
 
-### 3. 依赖倒置
-- 使用接口定义契约（如 `IDataStore`）
-- 具体实现可替换（如 `LocalDataStore`）
+### 4. 可扩展性
+- 新增模块只需要：
+  1. 在 `HomePage` 添加模块卡片
+  2. 在 `AppRouter` 添加路由配置
+  3. 创建对应的页面目录
+  4. 使用 `ModuleLayout` 包装
 
-### 4. 可测试性
-- 业务逻辑与 UI 分离
-- 纯函数易于单元测试
-- 使用依赖注入便于 Mock
+---
+
+## 路由结构
+
+```
+/                           # 主入口（模块选择）
+
+/kp                         # KP中控台模块
+  ├─ /                      # 概览页
+  ├─ /session               # 会话中控台
+  └─ /characters            # 角色库
+
+/designer                   # 模组创建模块
+  ├─ /                      # 概览页
+  └─ /module                # 模组设计器
+
+/rulebook                   # 规则库模块
+  ├─ /                      # 规则索引
+  ├─ /search                # 搜索
+  ├─ /rules                 # 核心规则
+  ├─ /skills                # 技能
+  ├─ /attributes            # 属性
+  ├─ /occupations           # 职业
+  ├─ /combat                # 战斗
+  ├─ /sanity                # 理智
+  └─ /equipment             # 装备
+```
 
 ---
 

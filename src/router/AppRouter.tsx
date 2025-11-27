@@ -1,51 +1,72 @@
 ﻿import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppLayout } from '@/components/AppLayout';
-import { DashboardPage } from '@/pages/DashboardPage';
-import { SessionConsolePage } from '@/pages/SessionConsolePage';
-import { CharactersPage } from '@/pages/CharactersPage';
-import { CampaignsPage } from '@/pages/CampaignsPage';
-import { ScenesPage } from '@/pages/ScenesPage';
-import { SettingsPage } from '@/pages/SettingsPage';
-import { RulebookIndexPage } from '@/pages/RulebookIndexPage';
-import { RulebookSearchPage } from '@/pages/RulebookSearchPage';
-import { RulesPage } from '@/pages/RulesPage';
-import { SkillsPage } from '@/pages/SkillsPage';
-import { AttributesPage } from '@/pages/AttributesPage';
-import { OccupationsPage } from '@/pages/OccupationsPage';
-import { CombatPage } from '@/pages/CombatPage';
-import { SanityPage } from '@/pages/SanityPage';
-import { EquipmentPage } from '@/pages/EquipmentPage';
+import { ModuleLayout } from '@/components/ModuleLayout';
+import { HomePage } from '@/pages/HomePage';
+import { KPDashboardPage } from '@/pages/kp/KPDashboardPage';
+import { SessionConsolePage } from '@/pages/kp/SessionConsolePage';
+import { CharactersPage } from '@/pages/kp/CharactersPage';
+import { DesignerDashboardPage } from '@/pages/designer/DesignerDashboardPage';
+import { ModuleDesignerPage } from '@/pages/designer/ModuleDesignerPage';
+import { RulebookIndexPage } from '@/pages/rulebook/RulebookIndexPage';
+import { RulebookSearchPage } from '@/pages/rulebook/RulebookSearchPage';
+import { RulesPage } from '@/pages/rulebook/RulesPage';
+import { SkillsPage } from '@/pages/rulebook/SkillsPage';
+import { AttributesPage } from '@/pages/rulebook/AttributesPage';
+import { OccupationsPage } from '@/pages/rulebook/OccupationsPage';
+import { CombatPage } from '@/pages/rulebook/CombatPage';
+import { SanityPage } from '@/pages/rulebook/SanityPage';
+import { EquipmentPage } from '@/pages/rulebook/EquipmentPage';
 
 /**
- * 应用路由配置
+ * 应用路由配置 - 三大模块结构
  */
 export const AppRouter: React.FC = () => {
   const basename = new URL(import.meta.env.BASE_URL, window.location.href).pathname;
 
   return (
     <BrowserRouter basename={basename}>
-      <AppLayout>
-        <Routes>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/session" element={<SessionConsolePage />} />
-          <Route path="/characters" element={<CharactersPage />} />
-          <Route path="/campaigns" element={<CampaignsPage />} />
-          <Route path="/scenes" element={<ScenesPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          
-          {/* 规则库路由 */}
-          <Route path="/rulebook" element={<RulebookIndexPage />} />
-          <Route path="/rulebook/search" element={<RulebookSearchPage />} />
-          <Route path="/rulebook/rules" element={<RulesPage />} />
-          <Route path="/rulebook/skills" element={<SkillsPage />} />
-          <Route path="/rulebook/attributes" element={<AttributesPage />} />
-          <Route path="/rulebook/occupations" element={<OccupationsPage />} />
-          <Route path="/rulebook/combat" element={<CombatPage />} />
-          <Route path="/rulebook/sanity" element={<SanityPage />} />
-          <Route path="/rulebook/equipment" element={<EquipmentPage />} />
-        </Routes>
-      </AppLayout>
+      <Routes>
+        {/* 主入口 */}
+        <Route path="/" element={<HomePage />} />
+        
+        {/* KP中控台模块 */}
+        <Route path="/kp/*" element={
+          <ModuleLayout module="kp" title="KP 中控台">
+            <Routes>
+              <Route path="/" element={<KPDashboardPage />} />
+              <Route path="/session" element={<SessionConsolePage />} />
+              <Route path="/characters" element={<CharactersPage />} />
+            </Routes>
+          </ModuleLayout>
+        } />
+
+        {/* 模组创建模块 */}
+        <Route path="/designer/*" element={
+          <ModuleLayout module="designer" title="模组创建">
+            <Routes>
+              <Route path="/" element={<DesignerDashboardPage />} />
+              <Route path="/module" element={<ModuleDesignerPage />} />
+            </Routes>
+          </ModuleLayout>
+        } />
+
+        {/* 规则库模块 */}
+        <Route path="/rulebook/*" element={
+          <ModuleLayout module="rulebook" title="规则库">
+            <Routes>
+              <Route path="/" element={<RulebookIndexPage />} />
+              <Route path="/search" element={<RulebookSearchPage />} />
+              <Route path="/rules" element={<RulesPage />} />
+              <Route path="/skills" element={<SkillsPage />} />
+              <Route path="/attributes" element={<AttributesPage />} />
+              <Route path="/occupations" element={<OccupationsPage />} />
+              <Route path="/combat" element={<CombatPage />} />
+              <Route path="/sanity" element={<SanityPage />} />
+              <Route path="/equipment" element={<EquipmentPage />} />
+            </Routes>
+          </ModuleLayout>
+        } />
+      </Routes>
     </BrowserRouter>
   );
 };

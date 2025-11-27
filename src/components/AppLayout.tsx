@@ -16,6 +16,7 @@ const navItems: NavItem[] = [
   { path: '/characters', label: '角色库', icon: '◉' },
   { path: '/campaigns', label: '团/模组', icon: '▣' },
   { path: '/scenes', label: '场景/线索', icon: '◈' },
+  { path: '/module-designer', label: '模组设计器', icon: '📝' },
   { path: '/settings', label: '设置', icon: '⚙' },
 ];
 
@@ -231,11 +232,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <div className="p-4 border-t border-ww-slate-300/50 relative glossy-surface">
           <div className="glass rounded-lg px-3 py-2 text-center soft-inset">
             <p className="text-xs text-ww-slate-500 font-mono tracking-wider">
-              SYSTEM v0.0.1
+              VER v1.0.0
             </p>
-            <div className="flex items-center justify-center gap-2 mt-1">
-              <span className="text-xs text-ww-slate-600">LEX</span>
-            </div>
           </div>
         </div>
       </aside>
