@@ -72,7 +72,21 @@ export interface SkillExtended {
 }
 
 /**
- * 职业扩展数据类型定义（来自 CSV）
+ * 职业数据类型定义
+ */
+export interface Occupation {
+  id: string;
+  name: string;
+  era: '1920' | 'modern' | 'both';
+  description: string;
+  creditRatingRange: [number, number];
+  skillIds: string[];
+  skillPointsRule: string;
+}
+
+/**
+ * 职业扩展数据类型定义（来自 CSV - 已废弃）
+ * @deprecated 使用 Occupation 代替
  */
 export interface OccupationFull {
   id: string;

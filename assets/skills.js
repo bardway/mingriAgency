@@ -1,0 +1,500 @@
+module.exports = {
+  "creditRating": {
+    "id": "creditRating",
+    "name": "信誉",
+    "nameEn": "Credit Rating",
+    "base": 0,
+    "description": "衡量调查员的财富水平与社会地位，用来决定生活水准、能否支付大额开销或用排场打动他人，一般由职业给出推荐范围。",
+    "era": "both"
+  },
+  "spotHidden": {
+    "id": "spotHidden",
+    "name": "侦查",
+    "nameEn": "Spot Hidden",
+    "base": 25,
+    "description": "用于发现被刻意隐藏或不易察觉的细节，如暗门、藏匿物、埋伏者、伪装痕迹或微小线索，是最常用的调查技能之一。",
+    "era": "both"
+  },
+  "listen": {
+    "id": "listen",
+    "name": "聆听",
+    "nameEn": "Listen",
+    "base": 20,
+    "description": "专注听觉以捕捉细微声响，偷听谈话、分辨声源方位或察觉接近的脚步，在黑暗或视线受限时尤为重要。",
+    "era": "both"
+  },
+  "libraryUse": {
+    "id": "libraryUse",
+    "name": "图书馆使用",
+    "nameEn": "Library Use",
+    "base": 20,
+    "description": "检索和解读图书馆、档案馆、报纸、电子数据库等资料，用来查找人物信息、历史记录、专业论文或被遗忘的线索。",
+    "era": "both"
+  },
+  "psychology": {
+    "id": "psychology",
+    "name": "心理学",
+    "nameEn": "Psychology",
+    "base": 10,
+    "description": "通过表情、肢体语言和言语习惯判断他人的情绪、动机和是否说谎，也常用来抵抗或反制他人的社交技巧。",
+    "era": "both"
+  },
+  "persuade": {
+    "id": "persuade",
+    "name": "说服",
+    "nameEn": "Persuade",
+    "base": 10,
+    "description": "通过耐心的谈判和合乎逻辑的论证，在相对较长的时间内改变他人的观点或获得协助，效果通常较持久。",
+    "era": "both"
+  },
+  "intimidate": {
+    "id": "intimidate",
+    "name": "恐吓",
+    "nameEn": "Intimidate",
+    "base": 15,
+    "description": "以暴力威胁、地位压迫或冷酷气势迫使他人屈服，适合短时间内获取情报或合作，失败则可能激起反抗或报警。",
+    "era": "both"
+  },
+  "charm": {
+    "id": "charm",
+    "name": "魅惑",
+    "nameEn": "Charm",
+    "base": 15,
+    "description": "以友善、幽默、外貌或诱惑拉近关系，让对方对你产生好感，从而更愿意提供帮助或宽松对待你的行为。",
+    "era": "both"
+  },
+  "fastTalk": {
+    "id": "fastTalk",
+    "name": "话术",
+    "nameEn": "Fast Talk",
+    "base": 5,
+    "description": "用高速、模糊或转移话题的方式在短时间内糊弄他人，例如临时编造借口、混进限制区域，效果多为一时之计。",
+    "era": "both"
+  },
+  "stealth": {
+    "id": "stealth",
+    "name": "潜行",
+    "nameEn": "Stealth",
+    "base": 20,
+    "description": "隐藏身形与脚步声以避免被发现，包括潜行、躲在掩体后或悄悄接近目标，失败往往意味着当场暴露。",
+    "era": "both"
+  },
+  "locksmith": {
+    "id": "locksmith",
+    "name": "锁匠",
+    "nameEn": "Locksmith",
+    "base": 1,
+    "description": "开闭各类机械或简单电子锁，制作备用钥匙或破坏锁芯，用于无钥匙进入房间、保险箱与车辆等。",
+    "era": "both"
+  },
+  "sleightOfHand": {
+    "id": "sleightOfHand",
+    "name": "妙手",
+    "nameEn": "Sleight of Hand",
+    "base": 10,
+    "description": "在视觉死角或分散注意力时完成精细手部动作，如顺手牵羊、掉包物品、藏匿证据或进行近景魔术。",
+    "era": "both"
+  },
+  "firstAid": {
+    "id": "firstAid",
+    "name": "急救",
+    "nameEn": "First Aid",
+    "base": 30,
+    "description": "在伤后短时间内止血、包扎和处理休克，可稳定濒死病人并恢复少量体力，与医学配合时治疗效果更好。",
+    "era": "both"
+  },
+  "medicine": {
+    "id": "medicine",
+    "name": "医学",
+    "nameEn": "Medicine",
+    "base": 1,
+    "description": "系统的医学知识与临床经验，用于诊断疾病、实施手术或长期治疗伤势，能在住院期显著恢复生命值并处理疑难病例。",
+    "era": "both"
+  },
+  "occult": {
+    "id": "occult",
+    "name": "神秘学",
+    "nameEn": "Occult",
+    "base": 5,
+    "description": "对神秘传统、民间仪式、占卜、巫术和都市传说的了解，代表人类对超自然的解释，但不等同于真正的克苏鲁神话知识。",
+    "era": "both"
+  },
+  "history": {
+    "id": "history",
+    "name": "历史",
+    "nameEn": "History",
+    "base": 5,
+    "description": "掌握不同年代的重大事件、政体、人物与物质文化，用于鉴别文物年代、看出时代错误或理解历史背景。",
+    "era": "both"
+  },
+  "anthropology": {
+    "id": "anthropology",
+    "name": "人类学",
+    "nameEn": "Anthropology",
+    "base": 1,
+    "description": "研究人类文化与社会结构，如风俗、宗教、亲属制度等，帮助理解陌生文化和仪式背后的真正含义。",
+    "era": "both"
+  },
+  "archaeology": {
+    "id": "archaeology",
+    "name": "考古学",
+    "nameEn": "Archaeology",
+    "base": 1,
+    "description": "进行科学考古发掘，鉴定与修复出土文物，估算遗迹年代与来源，也可用来识别伪造古物或不合时宜的技术。",
+    "era": "both"
+  },
+  "appraise": {
+    "id": "appraise",
+    "name": "估价",
+    "nameEn": "Appraise",
+    "base": 5,
+    "description": "通过材质、工艺和市场经验估算物品价格，并辨别赝品或被低估的收藏，对古董商与鉴定师尤为重要。",
+    "era": "both"
+  },
+  "artCraft": {
+    "id": "artCraft",
+    "name": "艺术/工艺",
+    "nameEn": "Art/Craft",
+    "base": 5,
+    "description": "在某一艺术或手工领域的专长，如绘画、写作、雕塑或裁缝，可用于创作作品、获取收入或伪造文件与艺术品。",
+    "era": "both"
+  },
+  "disguise": {
+    "id": "disguise",
+    "name": "乔装",
+    "nameEn": "Disguise",
+    "base": 5,
+    "description": "通过化妆、服饰、姿态与口音改变外在形象，使他人误以为你是特定职业或个人，适用潜入与躲避追捕。",
+    "era": "both"
+  },
+  "drive": {
+    "id": "drive",
+    "name": "驾驶",
+    "nameEn": "Drive Auto",
+    "base": 20,
+    "description": "驾驶各类普通机动车辆，在恶劣天气、追逐、越野或高速行驶时保持车辆受控，也包括基础保养与排除小故障。",
+    "era": "both"
+  },
+  "navigate": {
+    "id": "navigate",
+    "name": "领航",
+    "nameEn": "Navigate",
+    "base": 10,
+    "description": "凭借地图、指南针、星象或地形判断方位与路线，避免迷路或偏离航线，适用于陆路旅行、航海与飞行导航。",
+    "era": "both"
+  },
+  "handgun": {
+    "id": "handgun",
+    "name": "手枪",
+    "nameEn": "Handgun",
+    "base": 20,
+    "description": "熟练使用手枪和左轮，包括拔枪、装填、瞄准与近距离射击，在室内或城市环境的战斗中尤为常见。",
+    "era": "both"
+  },
+  "rifle": {
+    "id": "rifle",
+    "name": "步枪/霰弹枪",
+    "nameEn": "Rifle/Shotgun",
+    "base": 25,
+    "description": "操作步枪与霰弹枪，掌握装填、射击姿势和远距离瞄准，可用于狩猎、战斗或击中较远的目标。",
+    "era": "both"
+  },
+  "fighting": {
+    "id": "fighting",
+    "name": "斗殴",
+    "nameEn": "Fighting",
+    "base": 25,
+    "description": "徒手格斗与简易近战武器的运用，如拳脚、擒拿、摔投或使用椅子、酒瓶等improvised武器，常用于肉搏对抗。",
+    "era": "both"
+  },
+  "throw": {
+    "id": "throw",
+    "name": "投掷",
+    "nameEn": "Throw",
+    "base": 20,
+    "description": "向目标掷出匕首、石块、燃烧瓶或其他物品以造成伤害或干扰，也用于精确投掷绳索、工具等。",
+    "era": "both"
+  },
+  "dodge": {
+    "id": "dodge",
+    "name": "闪避",
+    "nameEn": "Dodge",
+    "base": 0,
+    "description": "通过闪身、翻滚或利用掩体来躲避攻击和飞来的物体，通常在战斗轮中与对方攻击判定对抗使用。",
+    "era": "both",
+    "special": "DEX/2"
+  },
+  "climb": {
+    "id": "climb",
+    "name": "攀爬",
+    "nameEn": "Climb",
+    "base": 20,
+    "description": "攀爬墙壁、岩石、绳索或树木，并在失足时努力抓住支点防止坠落，必要时也能用于速降。",
+    "era": "both"
+  },
+  "jump": {
+    "id": "jump",
+    "name": "跳跃",
+    "nameEn": "Jump",
+    "base": 20,
+    "description": "跨越沟渠、栏杆和屋顶间的空隙，或从高处跳下并尽量减轻落地冲击，失败可能导致摔伤。",
+    "era": "both"
+  },
+  "swim": {
+    "id": "swim",
+    "name": "游泳",
+    "nameEn": "Swim",
+    "base": 20,
+    "description": "在水中移动和自救，抵抗激流、寒冷与疲劳；低技能值的角色在恶劣环境中极易溺水。",
+    "era": "both"
+  },
+  "track": {
+    "id": "track",
+    "name": "追踪",
+    "nameEn": "Track",
+    "base": 10,
+    "description": "根据足迹、折断的枝叶、气味或血迹判断行进方向与人数，也可用来追踪车辆或大型生物。",
+    "era": "both"
+  },
+  "computerUse": {
+    "id": "computerUse",
+    "name": "计算机使用",
+    "nameEn": "Computer Use",
+    "base": 5,
+    "description": "使用与编写计算机程序，搜索和分析网络数据，攻防信息系统或入侵受保护的数据库，是现代调查的重要手段。",
+    "era": "modern"
+  },
+  "electronics": {
+    "id": "electronics",
+    "name": "电子学",
+    "nameEn": "Electronics",
+    "base": 1,
+    "description": "设计、分析和维修复杂电子电路与设备，如报警系统、无线电、监控器材或精密仪器，高科技场景中必不可少。",
+    "era": "modern"
+  },
+  "engineering": {
+    "id": "engineering",
+    "name": "工程学",
+    "nameEn": "Engineering",
+    "base": 1,
+    "description": "工程设计与结构分析，评估建筑和机械的承载能力或缺陷，也可用于临时搭建或破坏桥梁、工事等设施。",
+    "era": "modern"
+  },
+  "law": {
+    "id": "law",
+    "name": "法律",
+    "nameEn": "Law",
+    "base": 5,
+    "description": "熟悉相关国家和地区的法律条文、程序与判例，可用来查找漏洞、在法庭上辩护或与警方、官僚机构周旋。",
+    "era": "both"
+  },
+  "photography": {
+    "id": "photography",
+    "name": "摄影",
+    "nameEn": "Photography",
+    "base": 5,
+    "description": "掌握取景、曝光和暗房／数码后期等技术，用于拍摄清晰证物、新闻照片或艺术作品，并在影像中发现细节线索。",
+    "era": "both"
+  },
+  "science": {
+    "id": "science",
+    "name": "科学",
+    "nameEn": "Science",
+    "base": 1,
+    "description": "泛指未单独列出的自然或应用科学专长，需在人物卡上注明具体方向，用于进行专业分析和理解相关现象。",
+    "era": "both"
+  },
+  "mathematics": {
+    "id": "mathematics",
+    "name": "数学",
+    "nameEn": "Mathematics",
+    "base": 10,
+    "description": "从算术到高等数学的理论能力，辅助处理弹道、统计、密码学、工程计算等需要严密定量推理的问题。",
+    "era": "modern"
+  },
+  "biology": {
+    "id": "biology",
+    "name": "生物学",
+    "nameEn": "Biology",
+    "base": 1,
+    "description": "研究生物结构与生命过程，包括解剖、遗传与生态，可用于分析血液与组织样本或判断生物异常之处。",
+    "era": "modern"
+  },
+  "latin": {
+    "id": "latin",
+    "name": "拉丁语",
+    "nameEn": "Latin",
+    "base": 1,
+    "description": "阅读与书写拉丁语，理解古代文献、教会记录和部分学术术语，常与历史、医学或神秘学资料相互配合。",
+    "era": "modern"
+  },
+  "ownLanguage": {
+    "id": "ownLanguage",
+    "name": "母语",
+    "nameEn": "Own Language",
+    "base": 0,
+    "description": "调查员使用最熟练的母语能力，涵盖阅读、写作与修辞表达，对撰写论文、审查文书或在本文化圈社交都极为重要。",
+    "era": "both",
+    "special": "EDU"
+  },
+  "otherLanguage": {
+    "id": "otherLanguage",
+    "name": "其他语言",
+    "nameEn": "Other Language",
+    "base": 1,
+    "description": "除母语与拉丁语外的外语掌握程度，可用于阅读原文资料、与当地人沟通或破译多语言线索。",
+    "era": "both"
+  },
+  "accounting": {
+    "id": "accounting",
+    "name": "会计",
+    "nameEn": "Accounting",
+    "base": 5,
+    "description": "整理和解读账簿、报表与税务文件，发现挪用公款、洗钱或隐藏资产的痕迹，也能估算企业的真实财务状况。",
+    "era": "both"
+  },
+  "animalHandling": {
+    "id": "animalHandling",
+    "name": "动物驯养",
+    "nameEn": "Animal Handling",
+    "base": 5,
+    "description": "安抚、训练和指挥动物的技巧，适用于马、犬等常见动物，也可用来避免被惊吓的动物攻击或失控。",
+    "era": "modern"
+  },
+  "astronomy": {
+    "id": "astronomy",
+    "name": "天文学",
+    "nameEn": "Astronomy",
+    "base": 1,
+    "description": "观察星空与行星运动，使用望远镜和星图判断时间与方位，识别异常天象或可能与神秘现象相关的星位。",
+    "era": "modern"
+  },
+  "chemistry": {
+    "id": "chemistry",
+    "name": "化学",
+    "nameEn": "Chemistry",
+    "base": 1,
+    "description": "掌握化学物质性质与反应原理，能配置药剂、炸药或试剂，对现场残留物进行分析并推断其成分。",
+    "era": "modern"
+  },
+  "diving": {
+    "id": "diving",
+    "name": "潜水",
+    "nameEn": "Diving",
+    "base": 1,
+    "description": "使用水肺或其他潜水设备在水下行动，控制浮力与气体消耗，应对水压和能见度等危险环境。",
+    "era": "modern"
+  },
+  "electricalRepair": {
+    "id": "electricalRepair",
+    "name": "电器维修",
+    "nameEn": "Electrical Repair",
+    "base": 10,
+    "description": "维修日常电气设备和线路，如照明、电机、保险丝等，也可暂时改装或破坏简单电路与电锁。",
+    "era": "both"
+  },
+  "firearms": {
+    "id": "firearms",
+    "name": "火器",
+    "nameEn": "Firearms",
+    "base": 20,
+    "description": "代表对现代军用或自动火器的掌握，如冲锋枪、突击步枪等，在连发射击和压制火力场景中使用。",
+    "era": "modern"
+  },
+  "forensics": {
+    "id": "forensics",
+    "name": "法医学",
+    "nameEn": "Forensics",
+    "base": 1,
+    "description": "运用医学与理化手段分析犯罪现场和尸体，如判断死亡时间、致伤武器、血迹方向，为案件提供科学证据。",
+    "era": "modern"
+  },
+  "geology": {
+    "id": "geology",
+    "name": "地质学",
+    "nameEn": "Geology",
+    "base": 1,
+    "description": "研究岩石、矿物与地层结构，用于寻找矿脉、判断地质灾害风险或分析石材、土壤的来源。",
+    "era": "modern"
+  },
+  "mechanicalRepair": {
+    "id": "mechanicalRepair",
+    "name": "机械维修",
+    "nameEn": "Mechanical Repair",
+    "base": 10,
+    "description": "拆解与修理各种机械装置，从锁芯、发动机到武器机件，也可临时改造或让机械短时间超负荷运转。",
+    "era": "both"
+  },
+  "naturalWorld": {
+    "id": "naturalWorld",
+    "name": "博物学",
+    "nameEn": "Natural World",
+    "base": 10,
+    "description": "对动植物、天气与野外生态的综合认识，识别可食用或有毒的物种，判断动物行为和自然危险。",
+    "era": "both"
+  },
+  "operateHeavyMachinery": {
+    "id": "operateHeavyMachinery",
+    "name": "重型机械操作",
+    "nameEn": "Operate Heavy Machinery",
+    "base": 1,
+    "description": "驾驶与操作大型工程机械，如起重机、推土机或挖掘机，确保在工地或灾害现场安全高效地完成作业。",
+    "era": "both"
+  },
+  "pharmacy": {
+    "id": "pharmacy",
+    "name": "药学",
+    "nameEn": "Pharmacy",
+    "base": 1,
+    "description": "掌握药物配方、剂量与相互作用，可调配处方药、解毒剂或麻醉剂，并识别药物滥用和中毒迹象。",
+    "era": "modern"
+  },
+  "physics": {
+    "id": "physics",
+    "name": "物理学",
+    "nameEn": "Physics",
+    "base": 1,
+    "description": "理解力学、电磁学等物理原理，用于分析弹道、结构受力、能量传输或解释一些看似超自然但仍属物理范围的现象。",
+    "era": "modern"
+  },
+  "pilot": {
+    "id": "pilot",
+    "name": "驾驶飞行器",
+    "nameEn": "Pilot",
+    "base": 1,
+    "description": "驾驶飞机、直升机或其他飞行器，包括起降、航线规划与在恶劣天气中的飞行操作，对紧急迫降尤为关键。",
+    "era": "modern"
+  },
+  "psychoanalysis": {
+    "id": "psychoanalysis",
+    "name": "精神分析",
+    "nameEn": "Psychoanalysis",
+    "base": 1,
+    "description": "长期而系统地对精神疾病进行谈话治疗与分析，缓解创伤性症状并在规则允许时帮助角色恢复部分理智值。",
+    "era": "both"
+  },
+  "ride": {
+    "id": "ride",
+    "name": "骑术",
+    "nameEn": "Ride",
+    "base": 5,
+    "description": "驾驭马匹或其他可骑乘动物，控制速度与方向，保持在奔跑或受惊时不从鞍上摔下。",
+    "era": "both"
+  },
+  "survival": {
+    "id": "survival",
+    "name": "生存",
+    "nameEn": "Survival",
+    "base": 10,
+    "description": "在特定环境下（如荒野、沙漠、极地）寻找水源和食物、搭建庇护所以及避免环境危险，往往与博物学联合使用。",
+    "era": "both"
+  },
+  "zoology": {
+    "id": "zoology",
+    "name": "动物学",
+    "nameEn": "Zoology",
+    "base": 1,
+    "description": "研究动物分类、行为与生态，可用于识别物种、判断动物习性、分析啮咬或爪痕是否合理等。",
+    "era": "modern"
+  }
+}

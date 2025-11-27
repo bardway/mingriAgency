@@ -87,12 +87,8 @@ JSON 格式的静态数据，运行时通过 fetch 加载。采用模块化拆�
 - `attributes.json` - 角色基础属性(STR、CON等)
 - `derived-stats.json` - 派生属性(HP、SAN、MP等)
 - `skill-categories.json` - 技能分类
-- `skills.json` - 技能完整数据
-- `skills-extended.json` - 技能扩展数据（110项）
-- `skills-full.json` - 技能完整说明（含难度、示例）
-- `occupations.json` - 职业数据
-- `occupations-extended.json` - 职业扩展数据（230项）
-- `occupations-full.json` - 职业完整数据
+- `skills.json` - 技能数据（62项，按年代分类）
+- `occupations.json` - 职业数据（186项）
 - `glossary.json` - 术语表
 - `combat-rules.json` - 战斗规则
 - `weapons.json` - 武器列表（104项）
@@ -103,7 +99,7 @@ JSON 格式的静态数据，运行时通过 fetch 加载。采用模块化拆�
 - `insanity-manifestations.json` - 疯狂表现（21项）
 - `prices.json` - 物品价格表
 
-> 所有数据采用模块化拆分，提升性能和可维护性
+> **精简优化**: 所有数据采用模块化拆分，技能和职业按年代(both/modern/1920s)分类
 
 ### `/docs` - 项目文档
 所有项目相关的文档集中存放。

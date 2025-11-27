@@ -29,23 +29,23 @@ const categories: RuleCategory[] = [
   },
   {
     id: 'skills',
-    title: '技能系统',
-    icon: '🎯',
-    description: '47项技能详细说明',
-    path: '/rulebook/skills',
-    color: 'from-zinc-500/15 to-gray-600/15 border-zinc-500/30'
-  },
-  {
-    id: 'skills-full',
     title: '技能详查',
-    icon: '📖',
-    description: '110项完整技能数据',
-    path: '/rulebook/skills-full',
+    icon: '🎯',
+    description: '62项技能详细说明（含年代分类）',
+    path: '/rulebook/skills',
     color: 'from-blue-500/15 to-indigo-500/15 border-blue-500/30'
   },
   {
+    id: 'occupations',
+    title: '职业速查',
+    icon: '💼',
+    description: '186个职业的技能配置（1920/现代）',
+    path: '/rulebook/occupations',
+    color: 'from-gray-500/15 to-slate-500/15 border-gray-500/30'
+  },
+  {
     id: 'equipment',
-    title: '装备系统',
+    title: '装备速查',
     icon: '⚔️',
     description: '武器、防具、载具资料库',
     path: '/rulebook/equipment',
@@ -55,7 +55,7 @@ const categories: RuleCategory[] = [
     id: 'combat',
     title: '战斗规则',
     icon: '⚡',
-    description: '战斗回合、伤害、武器数据',
+    description: '战斗回合、伤害计算',
     path: '/rulebook/combat',
     color: 'from-slate-600/15 to-gray-700/15 border-slate-600/30'
   },
@@ -66,14 +66,6 @@ const categories: RuleCategory[] = [
     description: '理智检定、疯狂症状',
     path: '/rulebook/sanity',
     color: 'from-neutral-600/15 to-stone-600/15 border-neutral-600/30'
-  },
-  {
-    id: 'occupations',
-    title: '职业速查',
-    icon: '👔',
-    description: '职业技能与配置',
-    path: '/rulebook/occupations',
-    color: 'from-gray-500/15 to-slate-500/15 border-gray-500/30'
   }
 ];
 

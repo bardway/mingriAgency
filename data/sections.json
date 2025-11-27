@@ -10,16 +10,24 @@
   {
     "id": "skills",
     "slug": "skills",
-    "title": "技能系统",
+    "title": "技能详查",
     "order": 2,
-    "description": "技能检定、难度等级和成长规则",
+    "description": "62项技能的详细说明、使用方法和检定难度",
     "source": { "book": "rulebook", "chapter": "技能", "pages": "45-68" }
+  },
+  {
+    "id": "occupations",
+    "slug": "occupations",
+    "title": "职业速查",
+    "order": 3,
+    "description": "186个职业的技能点分配和信誉范围",
+    "source": { "book": "handbook", "chapter": "职业", "pages": "20-45" }
   },
   {
     "id": "combat",
     "slug": "combat",
     "title": "战斗规则",
-    "order": 3,
+    "order": 4,
     "description": "回合制战斗、伤害和特殊动作",
     "source": { "book": "rulebook", "chapter": "战斗", "pages": "105-125" }
   },
@@ -27,16 +35,16 @@
     "id": "sanity",
     "slug": "sanity",
     "title": "理智系统",
-    "order": 4,
+    "order": 5,
     "description": "理智值、理智检定和疯狂症状",
     "source": { "book": "rulebook", "chapter": "理智", "pages": "130-152" }
   },
   {
-    "id": "mythos",
-    "slug": "mythos",
-    "title": "克苏鲁神话",
-    "order": 5,
-    "description": "神话知识、法术和神秘生物",
-    "source": { "book": "rulebook", "chapter": "神话", "pages": "180-220" }
+    "id": "equipment",
+    "slug": "equipment",
+    "title": "装备速查",
+    "order": 6,
+    "description": "武器、防具、载具和物品价格",
+    "source": { "book": "rulebook", "chapter": "装备", "pages": "160-180" }
   }
 ]

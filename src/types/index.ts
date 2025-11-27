@@ -1,9 +1,7 @@
-// ���ͳ��ھۺ�
-export * from "@/domain";
-export * from "./coc7-knowledgebase";
-export * from "./equipment";
+﻿export * from '@/domain';
+export * from './coc7-knowledgebase';
+export type { Weapon, Armor, Vehicle, SkillExtended, OccupationFull } from './equipment';
 
-// ͨ�����Ͷ���
 export type UUID = string;
 
 export interface BaseEntity {
@@ -12,11 +10,10 @@ export interface BaseEntity {
   updatedAt: Date;
 }
 
-// ���ݼ���״̬
 export type LoadingState = 'idle' | 'loading' | 'success' | 'error';
 
 export interface AsyncData<T> {
   data: T | null;
   state: LoadingState;
-  error?: Error;
+  error: Error | null;
 }

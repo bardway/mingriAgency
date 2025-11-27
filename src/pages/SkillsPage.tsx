@@ -242,11 +242,13 @@ export const SkillsPage: React.FC = () => {
               )}
 
               {/* 来源 */}
-              <div className="flex items-center gap-2 text-xs text-ww-slate-500 pt-4 border-t border-ww-slate-300/30">
-                <span>▣</span>
-                <span>来源: {selectedSkillData.source.book}</span>
-                {selectedSkillData.source.pages && <span>P.{selectedSkillData.source.pages}</span>}
-              </div>
+              {selectedSkillData.source && (
+                <div className="flex items-center gap-2 text-xs text-ww-slate-500 pt-4 border-t border-ww-slate-300/30">
+                  <span>▣</span>
+                  <span>来源: {selectedSkillData.source.book}</span>
+                  {selectedSkillData.source.pages && <span>P.{selectedSkillData.source.pages}</span>}
+                </div>
+              )}
             </div>
           ) : (
             <div className="glass rounded-xl border border-ww-slate-300/50 p-12 text-center">

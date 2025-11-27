@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/Card';
-import type { OccupationFull } from '@/types/equipment';
+
+interface Occupation {
+  id: string;
+  name: string;
+  era: '1920' | 'modern' | 'both';
+  description: string;
+  creditRatingRange: [number, number];
+  skillIds: string[];
+  skillPointsRule: string;
+}
 
 export const OccupationsPage: React.FC = () => {
-  const [occupations, setOccupations] = useState<OccupationFull[]>([]);
+  const [occupations, setOccupations] = useState<Occupation[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedOccupation, setSelectedOccupation] = useState<OccupationFull | null>(null);
+  const [selectedOccupation, setSelectedOccupation] = useState<Occupation | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [eraFilter, setEraFilter] = useState<'all' | '1920' | 'modern'>('all');
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch('/data/occupations-full.json');
+        const response = await fetch('/data/occupations.json');
         const data = await response.json();
         setOccupations(data);
         setLoading(false);
@@ -32,10 +42,12 @@ export const OccupationsPage: React.FC = () => {
     );
   }
 
-  // 搜索过滤
-  const filteredOccupations = occupations.filter(occ =>
-    occ.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // 搜索和筛选
+  const filteredOccupations = occupations.filter(occ => {
+    const matchSearch = occ.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchEra = eraFilter === 'all' || occ.era === eraFilter || occ.era === 'both';
+    return matchSearch && matchEra;
+  });
 
   return (
     <div className="space-y-6">
@@ -56,19 +68,55 @@ export const OccupationsPage: React.FC = () => {
           </div>
           <div>
             <h1 className="text-3xl font-bold text-ww-slate-800">职业速查</h1>
-            <p className="text-sm text-ww-slate-600 mt-1">共 {occupations.length} 种职业</p>
+            <p className="text-sm text-ww-slate-600 mt-1">共 {filteredOccupations.length} / {occupations.length} 种职业</p>
           </div>
         </div>
 
-        {/* 搜索框 */}
-        <div className="w-64">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="搜索职业..."
-            className="w-full px-4 py-2 rounded-lg glass border border-ww-slate-300/50 focus:border-ww-orange-500/40 outline-none transition-colors text-sm"
-          />
+        <div className="flex gap-3">
+          {/* 年代筛选 */}
+          <div className="flex gap-2">
+            <button
+              onClick={() => setEraFilter('all')}
+              className={`px-4 py-2 rounded-lg text-sm transition-all ${
+                eraFilter === 'all'
+                  ? 'frosted-glass border border-ww-orange-500/40 text-ww-orange-600 font-medium'
+                  : 'glass border border-ww-slate-300/50 text-ww-slate-600 hover:border-ww-orange-500/30'
+              }`}
+            >
+              全部
+            </button>
+            <button
+              onClick={() => setEraFilter('1920')}
+              className={`px-4 py-2 rounded-lg text-sm transition-all ${
+                eraFilter === '1920'
+                  ? 'frosted-glass border border-ww-orange-500/40 text-ww-orange-600 font-medium'
+                  : 'glass border border-ww-slate-300/50 text-ww-slate-600 hover:border-ww-orange-500/30'
+              }`}
+            >
+              1920年代
+            </button>
+            <button
+              onClick={() => setEraFilter('modern')}
+              className={`px-4 py-2 rounded-lg text-sm transition-all ${
+                eraFilter === 'modern'
+                  ? 'frosted-glass border border-ww-orange-500/40 text-ww-orange-600 font-medium'
+                  : 'glass border border-ww-slate-300/50 text-ww-slate-600 hover:border-ww-orange-500/30'
+              }`}
+            >
+              现代
+            </button>
+          </div>
+
+          {/* 搜索框 */}
+          <div className="w-64">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="搜索职业..."
+              className="w-full px-4 py-2 rounded-lg glass border border-ww-slate-300/50 focus:border-ww-orange-500/40 outline-none transition-colors text-sm"
+            />
+          </div>
         </div>
       </div>
 
@@ -88,7 +136,7 @@ export const OccupationsPage: React.FC = () => {
             >
               <div className="font-bold text-ww-slate-800">{occ.name}</div>
               <div className="text-xs text-ww-orange-600 mt-1">
-                信用评级: {occ.creditRating}
+                信誉: {occ.creditRatingRange[0]}-{occ.creditRatingRange[1]} | {occ.era === '1920' ? '1920年代' : occ.era === 'modern' ? '现代' : '通用'}
               </div>
             </button>
           ))}
@@ -103,23 +151,26 @@ export const OccupationsPage: React.FC = () => {
                 <h2 className="text-2xl font-bold text-ww-slate-800 mb-2">
                   {selectedOccupation.name}
                 </h2>
-                <div className="inline-block px-3 py-1 rounded-full glass-strong border border-ww-orange-500/30 text-sm text-ww-orange-600">
-                  信用评级: {selectedOccupation.creditRating}
+                <div className="flex gap-2">
+                  <div className="inline-block px-3 py-1 rounded-full glass-strong border border-ww-orange-500/30 text-sm text-ww-orange-600">
+                    信誉: {selectedOccupation.creditRatingRange[0]}-{selectedOccupation.creditRatingRange[1]}
+                  </div>
+                  <div className="inline-block px-3 py-1 rounded-full glass-strong border border-blue-500/30 text-sm text-blue-600">
+                    {selectedOccupation.era === '1920' ? '1920年代' : selectedOccupation.era === 'modern' ? '现代' : '通用'}
+                  </div>
                 </div>
               </div>
 
-              {/* 职业属性 */}
-              {selectedOccupation.occupationalAttributes && (
-                <div className="glass-strong rounded-lg p-4 bg-white/40">
-                  <h3 className="font-bold text-ww-slate-800 mb-2 flex items-center gap-2">
-                    <span>⚡</span>
-                    <span>职业属性</span>
-                  </h3>
-                  <p className="text-sm text-ww-slate-700">
-                    {selectedOccupation.occupationalAttributes}
-                  </p>
-                </div>
-              )}
+              {/* 技能点数 */}
+              <div className="glass-strong rounded-lg p-4 bg-white/40">
+                <h3 className="font-bold text-ww-slate-800 mb-2 flex items-center gap-2">
+                  <span>⚡</span>
+                  <span>技能点数</span>
+                </h3>
+                <p className="text-sm text-ww-slate-700">
+                  {selectedOccupation.skillPointsRule}
+                </p>
+              </div>
 
               {/* 本职技能 */}
               <div className="glass-strong rounded-lg p-4 bg-white/40">
@@ -127,23 +178,17 @@ export const OccupationsPage: React.FC = () => {
                   <span>🎯</span>
                   <span>本职技能</span>
                 </h3>
-                <p className="text-sm text-ww-slate-700 leading-relaxed">
-                  {selectedOccupation.occupationalSkills}
-                </p>
-              </div>
-
-              {/* 关系人 */}
-              {selectedOccupation.contacts && (
-                <div className="glass-strong rounded-lg p-4 bg-white/40">
-                  <h3 className="font-bold text-ww-slate-800 mb-2 flex items-center gap-2">
-                    <span>👥</span>
-                    <span>推荐关系人</span>
-                  </h3>
-                  <p className="text-sm text-ww-slate-700">
-                    {selectedOccupation.contacts}
-                  </p>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {selectedOccupation.skillIds.map((skillId) => (
+                    <span 
+                      key={skillId}
+                      className="px-3 py-1 rounded-lg glass border border-ww-slate-300/50 text-sm text-ww-slate-700"
+                    >
+                      {skillId}
+                    </span>
+                  ))}
                 </div>
-              )}
+              </div>
 
               {/* 职业介绍 */}
               {selectedOccupation.description && (

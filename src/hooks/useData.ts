@@ -40,7 +40,7 @@ export function useAsyncData<T>(
     };
   }, dependencies);
 
-  return { data, state, error };
+  return { data, state, error: error || null };
 }
 
 /**
