@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card } from '@/components/Card';
+import { Copyright } from '@/components/Copyright';
 
 interface Occupation {
   id: string;
@@ -92,18 +93,15 @@ export const OccupationsPage: React.FC = () => {
       </div>
 
       {/* 标题区域 */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-500/20 to-slate-500/20 border border-gray-500/40 flex items-center justify-center edge-glow">
-            <span className="text-2xl">👔</span>
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-ww-slate-800">职业速查</h1>
-            <p className="text-sm text-ww-slate-600 mt-1">共 {filteredOccupations.length} / {occupations.length} 种职业</p>
-          </div>
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-500/20 to-slate-500/20 border border-gray-500/40 flex items-center justify-center edge-glow">
+          <span className="text-2xl">👔</span>
         </div>
+        <h1 className="text-3xl font-bold text-ww-slate-800">职业速查</h1>
+      </div>
 
-        <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div className="flex-1">
           {/* 年代筛选 - 桌面端按钮 */}
           <div className="hidden lg:flex gap-2">
             <button
@@ -288,6 +286,9 @@ export const OccupationsPage: React.FC = () => {
           )}
         </div>
       </div>
+      
+      {/* 版权信息 */}
+      <Copyright />
     </div>
   );
 };

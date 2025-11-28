@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Copyright } from '@/components/Copyright';
 
 interface RuleCategory {
   id: string;
@@ -88,18 +89,15 @@ export const RulebookIndexPage: React.FC = () => {
     <div className="p-8 max-w-7xl mx-auto">
       {/* 页面头部 */}
       <div className="mb-8">
-        <div className="flex items-center gap-3 mb-3">
+        <div className="flex items-center gap-3 mb-6">
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-ww-slate-500/20 to-ww-slate-600/20 border border-ww-slate-500/40 flex items-center justify-center shadow-glow">
             <span className="text-2xl">📚</span>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-ww-slate-800">COC7 规则库</h1>
-            <p className="text-sm text-ww-slate-600 mt-1">快速查阅克苏鲁的呼唤第七版规则</p>
-          </div>
+          <h1 className="text-3xl font-bold text-ww-slate-800">COC7 规则库</h1>
         </div>
 
         {/* 搜索框 */}
-        <div className="relative mt-6">
+        <div className="relative">
           <form onSubmit={handleSearch}>
             <input
               type="text"
@@ -176,6 +174,9 @@ export const RulebookIndexPage: React.FC = () => {
           使用搜索快速定位规则 · 数据来源 COC7 守秘人规则书
         </p>
       </div>
+      
+      {/* 版权信息 */}
+      <Copyright />
     </div>
   );
 };

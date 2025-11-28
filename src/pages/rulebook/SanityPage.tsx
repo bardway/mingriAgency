@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/Card';
+import { Copyright } from '@/components/Copyright';
 import type { InsanitySymptom } from '@/types/equipment';
 
 export const SanityPage: React.FC = () => {
@@ -55,10 +56,7 @@ export const SanityPage: React.FC = () => {
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/40 flex items-center justify-center edge-glow">
           <span className="text-2xl">🧠</span>
         </div>
-        <div>
-          <h1 className="text-3xl font-bold text-ww-slate-800">理智系统</h1>
-          <p className="text-sm text-ww-slate-600 mt-1">疯狂症状速查</p>
-        </div>
+        <h1 className="text-3xl font-bold text-ww-slate-800">理智系统</h1>
       </div>
 
       {/* 分类筛选 */}
@@ -224,6 +222,9 @@ export const SanityPage: React.FC = () => {
           )}
         </div>
       </div>
+      
+      {/* 版权信息 */}
+      <Copyright />
     </div>
   );
 };

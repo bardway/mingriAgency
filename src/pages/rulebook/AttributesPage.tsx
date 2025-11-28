@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCoc7Data } from '@/hooks/useCoc7Data';
+import { Copyright } from '@/components/Copyright';
 
 /**
  * 角色属性浏览页面
@@ -47,12 +48,7 @@ export const AttributesPage: React.FC = () => {
                         border border-stone-500/40 flex items-center justify-center shadow-glow">
             <span className="text-2xl">◈</span>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-ww-slate-800">角色属性</h1>
-            <p className="text-sm text-ww-slate-600 mt-1">
-              基础属性 & 派生属性
-            </p>
-          </div>
+          <h1 className="text-3xl font-bold text-ww-slate-800">角色属性</h1>
         </div>
 
         {/* 标签切换 */}
@@ -168,6 +164,9 @@ export const AttributesPage: React.FC = () => {
           ))}
         </div>
       )}
+      
+      {/* 版权信息 */}
+      <Copyright />
     </div>
   );
 };

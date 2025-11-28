@@ -2,10 +2,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ModuleLayout } from '@/components/ModuleLayout';
 import { HomePage } from '@/pages/HomePage';
-import { KPDashboardPage } from '@/pages/kp/KPDashboardPage';
 import { SessionConsolePage } from '@/pages/kp/SessionConsolePage';
 import { CharactersPage } from '@/pages/kp/CharactersPage';
-import { DesignerDashboardPage } from '@/pages/designer/DesignerDashboardPage';
 import { ModuleDesignerPage } from '@/pages/designer/ModuleDesignerPage';
 import { RulebookIndexPage } from '@/pages/rulebook/RulebookIndexPage';
 import { RulebookSearchPage } from '@/pages/rulebook/RulebookSearchPage';
@@ -29,30 +27,16 @@ export const AppRouter: React.FC = () => {
         {/* 主入口 */}
         <Route path="/" element={<HomePage />} />
         
-        {/* KP中控台模块 */}
-        <Route path="/kp/*" element={
-          <ModuleLayout module="kp" title="KP 中控台">
-            <Routes>
-              <Route path="/" element={<KPDashboardPage />} />
-              <Route path="/session" element={<SessionConsolePage />} />
-              <Route path="/characters" element={<CharactersPage />} />
-            </Routes>
-          </ModuleLayout>
-        } />
+        {/* KP中控台模块 - 直接进入会话控制台 */}
+        <Route path="/kp" element={<SessionConsolePage />} />
+        <Route path="/kp/characters" element={<CharactersPage />} />
 
-        {/* 模组创建模块 */}
-        <Route path="/designer/*" element={
-          <ModuleLayout module="designer" title="模组创建">
-            <Routes>
-              <Route path="/" element={<DesignerDashboardPage />} />
-              <Route path="/module" element={<ModuleDesignerPage />} />
-            </Routes>
-          </ModuleLayout>
-        } />
+        {/* 模组创建模块 - 直接进入设计器 */}
+        <Route path="/designer" element={<ModuleDesignerPage />} />
 
         {/* 规则库模块 */}
         <Route path="/rulebook/*" element={
-          <ModuleLayout module="rulebook" title="规则库">
+          <ModuleLayout title="规则库">
             <Routes>
               <Route path="/" element={<RulebookIndexPage />} />
               <Route path="/search" element={<RulebookSearchPage />} />

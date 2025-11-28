@@ -28,8 +28,8 @@ const modules: ModuleCard[] = [
     description: '剧情设计、场景编辑、NPC管理、故事流程',
     icon: '📝',
     path: '/designer',
-    bgGradient: 'from-blue-500/10 to-cyan-500/10',
-    iconBg: 'from-blue-500/20 to-cyan-500/20'
+    bgGradient: 'from-rose-950/5 to-rose-900/5',
+    iconBg: 'from-rose-900/15 to-rose-800/15'
   },
   {
     id: 'rulebook',
@@ -53,7 +53,7 @@ export const HomePage: React.FC = () => {
       {/* 背景装饰 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-ww-orange-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-rose-900/5 rounded-full blur-3xl"></div>
       </div>
 
       {/* 主内容 */}

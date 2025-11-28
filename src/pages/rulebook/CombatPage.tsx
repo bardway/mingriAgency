@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCoc7CombatRules } from '@/hooks/useCoc7Data';
+import { Copyright } from '@/components/Copyright';
 
 export const CombatPage: React.FC = () => {
   const { combatRules, loading, error } = useCoc7CombatRules();
@@ -22,10 +23,7 @@ export const CombatPage: React.FC = () => {
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-600/20 to-gray-700/20 border border-slate-600/40 flex items-center justify-center shadow-glow">
             <span className="text-2xl">⬢</span>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-ww-slate-800">战斗规则</h1>
-            <p className="text-sm text-ww-slate-600 mt-1">战斗机制说明</p>
-          </div>
+          <h1 className="text-3xl font-bold text-ww-slate-800">战斗规则</h1>
         </div>
       </div>
 
@@ -74,6 +72,9 @@ export const CombatPage: React.FC = () => {
           </div>
         </Link>
       </div>
+      
+      {/* 版权信息 */}
+      <Copyright />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useCoc7Data } from '@/hooks/useCoc7Data';
+import { Copyright } from '@/components/Copyright';
 
 /**
  * 技能系统浏览页面
@@ -102,19 +103,16 @@ export const SkillsPage: React.FC = () => {
 
       {/* 页面头部 */}
       <div className="mb-4 sm:mb-6">
-        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+        <div className="flex items-center gap-2 sm:gap-3">
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-zinc-500/20 to-gray-600/20 
                         border border-zinc-500/40 flex items-center justify-center shadow-glow">
             <span className="text-xl sm:text-2xl">◐</span>
           </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-ww-slate-800">技能系统</h1>
-            <p className="text-xs sm:text-sm text-ww-slate-600 mt-1">
-              共 {filteredSkills.length} 项技能
-            </p>
-          </div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-ww-slate-800">技能系统</h1>
         </div>
+      </div>
 
+      <div className="mb-4 sm:mb-6">
         {/* 搜索框 */}
         <input
           type="text"
@@ -280,6 +278,20 @@ export const SkillsPage: React.FC = () => {
                 </div>
               )}
 
+              {/* 专精技能特殊说明 */}
+              {selectedSkillData.hasSpecialization && (
+                <div className="glass-strong rounded-lg p-4 bg-gradient-to-br from-purple-500/5 to-pink-500/5 border border-purple-500/30">
+                  <h3 className="font-bold text-ww-slate-800 mb-2 flex items-center gap-2">
+                    <span>⚠️</span>
+                    <span>专精技能说明</span>
+                  </h3>
+                  <p className="text-sm text-ww-slate-700 leading-relaxed">
+                    此技能为<strong className="text-purple-600">专精技能</strong>，需要添加分支技能才可以使用，不可独立加点。
+                    在创建角色时，请在技能名称后标注具体的专精方向（如"艺术/工艺（绘画）"）。
+                  </p>
+                </div>
+              )}
+
               {/* 专精选项 */}
               {selectedSkillData.hasSpecialization && selectedSkillData.specializations && (
                 <div className="glass-strong rounded-lg p-4 bg-white/40">
@@ -325,6 +337,9 @@ export const SkillsPage: React.FC = () => {
           )}
         </div>
       </div>
+      
+      {/* 版权信息 */}
+      <Copyright />
     </div>
   );
 };

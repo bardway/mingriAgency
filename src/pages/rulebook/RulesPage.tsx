@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCoc7Data } from '@/hooks/useCoc7Data';
+import { Copyright } from '@/components/Copyright';
 
 /**
  * 核心规则浏览页面
@@ -80,12 +81,7 @@ export const RulesPage: React.FC = () => {
                         border border-slate-500/40 flex items-center justify-center shadow-glow">
             <span className="text-2xl">▣</span>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-ww-slate-800">核心规则</h1>
-            <p className="text-sm text-ww-slate-600 mt-1">
-              共 {filteredRules.length} 条规则
-            </p>
-          </div>
+          <h1 className="text-3xl font-bold text-ww-slate-800">核心规则</h1>
         </div>
 
         {/* 分类过滤 */}
@@ -188,6 +184,9 @@ export const RulesPage: React.FC = () => {
           <p className="text-ww-slate-500">该分类下暂无规则</p>
         </div>
       )}
+      
+      {/* 版权信息 */}
+      <Copyright />
     </div>
   );
 };

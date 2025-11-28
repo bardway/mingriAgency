@@ -8,19 +8,6 @@ interface NavItem {
   icon?: string;
 }
 
-// KP中控台菜单
-const kpNavItems: NavItem[] = [
-  { path: '/kp', label: '概览', icon: '◫' },
-  { path: '/kp/session', label: 'KP 中控台', icon: '⬢' },
-  { path: '/kp/characters', label: '角色库', icon: '◉' },
-];
-
-// 模组创建菜单
-const designerNavItems: NavItem[] = [
-  { path: '/designer', label: '概览', icon: '◫' },
-  { path: '/designer/module', label: '模组设计器', icon: '📝' },
-];
-
 // 规则库菜单
 const rulebookNavItems: NavItem[] = [
   { path: '/rulebook', label: '规则索引', icon: '◫' },
@@ -36,45 +23,26 @@ const rulebookNavItems: NavItem[] = [
 
 interface ModuleLayoutProps {
   children: React.ReactNode;
-  module: 'kp' | 'designer' | 'rulebook';
   title: string;
 }
 
 /**
- * 模块布局组件 - 为三个大模块提供统一的布局结构
+ * 模块布局组件 - 为规则库提供布局结构
  */
-export const ModuleLayout: React.FC<ModuleLayoutProps> = ({ children, module, title }) => {
+export const ModuleLayout: React.FC<ModuleLayoutProps> = ({ children, title }) => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  // 根据模块选择对应的菜单
-  const navItems = module === 'kp' 
-    ? kpNavItems 
-    : module === 'designer' 
-    ? designerNavItems 
-    : rulebookNavItems;
+  // 规则库菜单
+  const navItems = rulebookNavItems;
 
-  // 模块主题色
+  // 规则库主题色
   const moduleTheme = {
-    kp: {
-      gradient: 'from-ww-orange-500 to-ww-amber-500',
-      iconBg: 'from-ww-orange-500/15 to-ww-amber-500/15',
-      border: 'border-ww-orange-500/30',
-      icon: '⬢'
-    },
-    designer: {
-      gradient: 'from-blue-500 to-cyan-500',
-      iconBg: 'from-blue-500/15 to-cyan-500/15',
-      border: 'border-blue-500/30',
-      icon: '📝'
-    },
-    rulebook: {
-      gradient: 'from-purple-500 to-pink-500',
-      iconBg: 'from-purple-500/15 to-pink-500/15',
-      border: 'border-purple-500/30',
-      icon: '📚'
-    }
-  }[module];
+    gradient: 'from-purple-500 to-pink-500',
+    iconBg: 'from-purple-500/15 to-pink-500/15',
+    border: 'border-purple-500/30',
+    icon: '📚'
+  };
 
   return (
     <div className="flex h-screen bg-ww-light-200 text-ww-slate-700 scanlines">
@@ -142,7 +110,7 @@ export const ModuleLayout: React.FC<ModuleLayoutProps> = ({ children, module, ti
         {/* 顶部发光线 */}
         <div className={clsx(
           'absolute top-0 left-0 right-0 h-px',
-          `bg-gradient-to-r from-transparent via-${module === 'kp' ? 'ww-orange' : module === 'designer' ? 'blue' : 'purple'}-500/40 to-transparent`
+          'bg-gradient-to-r from-transparent via-purple-500/40 to-transparent'
         )}></div>
         
         {/* Logo */}
@@ -187,7 +155,7 @@ export const ModuleLayout: React.FC<ModuleLayoutProps> = ({ children, module, ti
                 className={clsx(
                   'group flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 relative overflow-hidden',
                   isActive
-                    ? `frosted-glass text-${module === 'kp' ? 'ww-orange' : module === 'designer' ? 'blue' : 'purple'}-500 edge-glow border border-${module === 'kp' ? 'ww-orange' : module === 'designer' ? 'blue' : 'purple'}-500/40 font-semibold depth-layer-2`
+                    ? 'frosted-glass text-purple-500 edge-glow border border-purple-500/40 font-semibold depth-layer-2'
                     : 'text-ww-slate-600 hover:text-ww-slate-800 hover:bg-ww-slate-200/50 glow-highlight'
                 )}
               >
@@ -214,7 +182,7 @@ export const ModuleLayout: React.FC<ModuleLayoutProps> = ({ children, module, ti
                 {!isActive && (
                   <span className={clsx(
                     'absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300',
-                    `bg-gradient-to-r from-${module === 'kp' ? 'ww-orange' : module === 'designer' ? 'blue' : 'purple'}-500/0 via-${module === 'kp' ? 'ww-orange' : module === 'designer' ? 'blue' : 'purple'}-500/5 to-${module === 'kp' ? 'ww-orange' : module === 'designer' ? 'blue' : 'purple'}-500/0`
+                    'bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-purple-500/0'
                   )}></span>
                 )}
               </Link>
@@ -225,7 +193,7 @@ export const ModuleLayout: React.FC<ModuleLayoutProps> = ({ children, module, ti
         {/* 底部分隔线 */}
         <div className={clsx(
           'absolute bottom-0 left-0 right-0 h-px',
-          `bg-gradient-to-r from-transparent via-${module === 'kp' ? 'ww-orange' : module === 'designer' ? 'blue' : 'purple'}-500/40 to-transparent`
+          'bg-gradient-to-r from-transparent via-purple-500/40 to-transparent'
         )}></div>
       </aside>
 

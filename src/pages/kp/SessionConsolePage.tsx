@@ -1,4 +1,5 @@
 ﻿import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
 import { useSessionStore } from "@/state";
@@ -149,11 +150,6 @@ export const SessionConsolePage: React.FC = () => {
     await addEventLog(`变量 [${varName}] 已删除`);
   };
 
-  const handleRollSanCheck = async (loss: string) => {
-    if (!currentSession || !loss) return;
-    await addEventLog(`SAN 检定失败扣除 ${loss} SAN`);
-  };
-
   const handleBackToList = async () => {
     await loadSessions();
   };
@@ -224,16 +220,30 @@ export const SessionConsolePage: React.FC = () => {
 
   if (!currentSession) {
     return (
-      <div className="space-y-6 sm:space-y-8">
-        <div className="relative">
-          <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-            <div className="w-1 sm:w-1.5 h-6 sm:h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
-              KP 中控台
-            </h1>
+      <div className="min-h-screen bg-ww-light-200 p-4 lg:p-8">
+        <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
+          {/* 返回主页导航 */}
+          <div className="flex items-center justify-between border-b border-ww-slate-200 pb-4">
+            <Link 
+              to="/" 
+              className="flex items-center gap-2 text-ww-slate-600 hover:text-ww-orange-600 transition-colors group"
+            >
+              <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              <span className="font-medium">返回主页</span>
+            </Link>
           </div>
-          <p className="text-sm sm:text-base text-ww-slate-600 ml-3 sm:ml-5">选择或创建一个 Session 开始</p>
-        </div>
+
+          <div className="relative">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+              <div className="w-1 sm:w-1.5 h-6 sm:h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
+                KP 中控台
+              </h1>
+            </div>
+            <p className="text-sm sm:text-base text-ww-slate-600 ml-3 sm:ml-5">选择或创建一个 Session 开始</p>
+          </div>
 
         <Card>
           <div className="mb-4 pb-4 border-b border-ww-slate-200">
@@ -280,12 +290,27 @@ export const SessionConsolePage: React.FC = () => {
             </div>
           )}
         </Card>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div className="min-h-screen bg-ww-light-200 p-4 lg:p-8">
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* 返回主页导航 */}
+        <div className="flex items-center justify-between border-b border-ww-slate-200 pb-4">
+          <Link 
+            to="/" 
+            className="flex items-center gap-2 text-ww-slate-600 hover:text-ww-orange-600 transition-colors group"
+          >
+            <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span className="font-medium">返回主页</span>
+          </Link>
+        </div>
+
       {/* 标题 */}
       <div className="relative">
         <div className="flex items-center gap-3 mb-3">
@@ -637,29 +662,6 @@ export const SessionConsolePage: React.FC = () => {
         )}
       </Card>
 
-      {/* SAN 检定工具 */}
-      <Card>
-        <div className="mb-4 pb-4 border-b border-ww-slate-200">
-          <h3 className="text-lg font-semibold text-ww-slate-900">SAN 检定</h3>
-        </div>
-
-        <div className="flex gap-3">
-          <input
-            type="text"
-            placeholder="输入失败损失 (例如: 1d6)"
-            className="flex-1 px-4 py-2 glass-strong border border-ww-slate-300/50 rounded-lg text-ww-slate-800 placeholder-ww-slate-500 focus:outline-none focus:ring-2 focus:ring-ww-orange-500/50"
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleRollSanCheck((e.target as HTMLInputElement).value);
-                (e.target as HTMLInputElement).value = '';
-              }
-            }}
-          />
-          <Button variant="primary">🎲 投骰</Button>
-        </div>
-        <p className="text-xs text-ww-slate-600 mt-2">输入 SAN 损失公式后按回车或点击投骰</p>
-      </Card>
-
       {/* 事件日志 */}
       <Card>
         <div className="mb-4 pb-4 border-b border-ww-slate-200">
@@ -681,6 +683,7 @@ export const SessionConsolePage: React.FC = () => {
           )}
         </div>
       </Card>
+      </div>
     </div>
   );
 };

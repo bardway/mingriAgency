@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/Card';
+import { Copyright } from '@/components/Copyright';
 import type { Weapon, Armor, Vehicle } from '@/types/equipment';
 
 type TabType = 'weapons' | 'armor' | 'vehicles';
@@ -232,17 +233,12 @@ export const EquipmentPage: React.FC = () => {
           </div>
 
           {/* 页面标题 */}
-          <div className="relative">
-        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-          <div className="w-1 sm:w-1.5 h-6 sm:h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
-            装备系统
-          </h1>
-        </div>
-        <p className="text-sm sm:text-base text-ww-slate-600 ml-3 sm:ml-5 tracking-wide">
-          武器、防具与载具资料库
-        </p>
-      </div>
+          <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+            <div className="w-1 sm:w-1.5 h-6 sm:h-8 bg-gradient-to-b from-ww-orange-500 to-ww-amber-500 rounded-full shadow-glow"></div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-ww-slate-900 to-ww-slate-700 bg-clip-text text-transparent tracking-tight">
+              装备系统
+            </h1>
+          </div>
 
       {/* 标签切换 */}
       <div className="flex gap-2 border-b border-ww-slate-200 overflow-x-auto">
@@ -430,6 +426,9 @@ export const EquipmentPage: React.FC = () => {
       </div>
         </>
       )}
+      
+      {/* 版权信息 */}
+      <Copyright />
     </div>
   );
 };

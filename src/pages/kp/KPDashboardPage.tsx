@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+import { Copyright } from '@/components/Copyright';
 
 interface QuickAction {
   path: string;
@@ -34,10 +35,7 @@ export const KPDashboardPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-ww-slate-800 mb-2">KP 中控台</h1>
-        <p className="text-ww-slate-600">
-          跑团会话管理，引导玩家探索克苏鲁世界
-        </p>
+        <h1 className="text-4xl font-bold text-ww-slate-800">KP 中控台</h1>
       </div>
 
       {/* 快速操作 */}
@@ -78,23 +76,8 @@ export const KPDashboardPage: React.FC = () => {
         ))}
       </div>
 
-      {/* 功能说明 */}
-      <div className="mt-6 p-4 rounded-lg bg-ww-slate-100/50 border border-ww-slate-200/50">
-        <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-ww-slate-600">
-          <div className="flex items-center gap-2">
-            <span className="opacity-50">📊</span>
-            <span>实时数据追踪</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="opacity-50">🎲</span>
-            <span>投骰管理</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="opacity-50">📝</span>
-            <span>会话记录</span>
-          </div>
-        </div>
-      </div>
+      {/* 版权信息 */}
+      <Copyright />
     </div>
   );
 };
